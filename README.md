@@ -1,0 +1,2 @@
+# MockGenerator
+Simple mock
