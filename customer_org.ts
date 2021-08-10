@@ -52,9 +52,11 @@ export const generateCustomerOrg = (total: number) => {
         },
         industry: {
             function: function () {
-                return (
-                    `${this.faker.phone.phoneNumber("######")}`
-                )
+                const phone = `${this.faker.phone.phoneNumber("######")}`
+                if (phone.substring(0, 1) == '0') {
+                    return phone.replace(/[0-9]/, '1')
+                }
+                return phone
             }
         },
         ownership: {
@@ -65,9 +67,11 @@ export const generateCustomerOrg = (total: number) => {
         },
         phone_number: {
             function: function () {
-                return (
-                    `${this.faker.phone.phoneNumber("##########")}`
-                )
+                const phone = `${this.faker.phone.phoneNumber("##########")}`
+                if (phone.substring(0, 1) == '0') {
+                    return phone.replace(/[0-9]]/, '1')
+                }
+                return phone
             }
         },
         email: {
@@ -79,9 +83,12 @@ export const generateCustomerOrg = (total: number) => {
         },
         tax_identification_number: {
             function: function () {
-                return (
-                    `${this.faker.phone.phoneNumber("#########")}`
-                )
+                const ssn = `${this.chance.ssn({dashes: false})}`
+                const startValue = ssn.substring(0, 1);
+                if (startValue == "0") {
+                    return ssn.replace(/[0-9]/, '1')
+                }
+                return ssn
             }
         }
 

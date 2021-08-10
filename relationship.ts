@@ -30,9 +30,11 @@ export const generateRelationships = (total: number) => {
         },
         entity_id: {
             function: function () {
-                return (
-                    "" + this.faker.phone.phoneNumber("###############")
-                )
+                const phone = `${this.faker.phone.phoneNumber("###############")}`
+                if (phone.substring(0, 1) == '0') {
+                    return phone.replace(/[0-9]]/, '1')
+                }
+                return phone
             }
         }
 

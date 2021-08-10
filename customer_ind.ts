@@ -45,17 +45,19 @@ export const generateCustomerInd = (total: number = 5) => {
         },
         email: {
             function: function () {
-                return (
-                    this.chance.email({domain: "gmail.com"})
-                )
+                const first = this.object.first_name.substring(0, 3).toLowerCase();
+                const last = this.object.last_name.substring(0, 3).toLowerCase();
+                return `${first}${last}@gmail.com`
             }
 
         },
         phone_number: {
             function: function () {
-                return (
-                    "" + this.faker.phone.phoneNumber("#########")
-                )
+                const phone = `${this.faker.phone.phoneNumber("##########")}`
+                if (phone.substring(0, 1) == '0') {
+                    return phone.replace(/[0-9]]/, '1')
+                }
+                return phone
             }
         },
         date_of_birth: {
@@ -67,9 +69,11 @@ export const generateCustomerInd = (total: number = 5) => {
         },
         social_security_number: {
             function: function () {
-                return (
-                    "" + this.faker.phone.phoneNumber("#########")
-                )
+                const ssn = `${this.chance.ssn({dashes: false})}`
+                if (ssn.substring(0, 1) == "0") {
+                    return ssn.replace(/[0-9]/, '1')
+                }
+                return ssn
             }
         },
         source_of_wealth: {
@@ -77,9 +81,11 @@ export const generateCustomerInd = (total: number = 5) => {
         },
         tax_identification_number: {
             function: function () {
-                return (
-                    "" + this.faker.phone.phoneNumber("#########")
-                )
+                const ssn = `${this.chance.ssn({dashes: false})}`
+                if (ssn.substring(0, 1) == "0") {
+                    return ssn.replace(/[0-9]/, '1')
+                }
+                return ssn
             }
         },
         country_of_secondary_citizenship: {
@@ -98,7 +104,11 @@ export const generateCustomerInd = (total: number = 5) => {
             values: gender
         },
         country_of_taxation: {
-            values: country_of_taxation
+            function: function () {
+                const current = this.object.country_of_residence;
+                const index = country_of_taxation.indexOf(current);
+                return country_of_taxation[index]
+            }
         },
 
 

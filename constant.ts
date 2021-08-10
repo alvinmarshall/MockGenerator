@@ -1,21 +1,3 @@
-// Correlation ID
-// Account
-// Opening Date
-// First Name
-// Middle Name
-// Last Name
-// Country of Citizenship
-// Marital Status
-// Email
-// Phone Number
-// Date of Birth
-// Social Security Number
-// Source of Wealth
-// Tax Identification Number
-// Country of Secondary Citizenship
-// Country of Residence
-// Occupation	 Annual Income	 Gender	 Country of Taxation
-
 
 export const genCorrelationId = (limit: number = 100): string[] => {
     const correlationId = 1000
