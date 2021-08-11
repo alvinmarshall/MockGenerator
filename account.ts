@@ -26,9 +26,11 @@ export const generateAccount = (total: number) => {
         },
         account_number: {
             function: function () {
-                return (
-                    "" + this.faker.phone.phoneNumber("###############")
-                )
+                const phone = `${this.faker.phone.phoneNumber("###############")}`
+                if (phone.substring(0, 1) == '0') {
+                    return phone.replace(/[0-9]]/, '1')
+                }
+                return phone
             }
         },
         opening_date: {
@@ -76,17 +78,4 @@ export const generateAccount = (total: number) => {
 
 }
 
-
-
-// var conditionalField = {
-//     type: {
-//         values: ['HOUSE', 'CAR', 'MOTORBIKE']
-//     },
-//     'object.type=="HOUSE",location': {
-//         faker: 'address.city'
-//     },
-//     'object.type=="CAR"||object.type=="MOTORBIKE",speed': {
-//         faker: 'random.number'
-//     }
-// }
 
