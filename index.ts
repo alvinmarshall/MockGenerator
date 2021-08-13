@@ -11,6 +11,7 @@ import {generateDocuments} from "./document";
 import {DailyCashEquivalentDepositsStructuring} from "./transaction/rules/DailyCashEquivalentDepositsStructuring";
 import {CashEquivalentDepositsStructuring} from "./transaction/rules/CashEquivalentDepositsStructuring";
 import {DailyCashEquivalentWithdrawalsStructuring} from "./transaction/rules/DailyCashEquivalentWithdrawalsStructuring";
+import {CashEquivalentWithdrawalsStructuring} from "./transaction/rules/CashEquivalentWithdrawalsStructuring";
 
 // const total = 100
 //
@@ -27,7 +28,8 @@ import {DailyCashEquivalentWithdrawalsStructuring} from "./transaction/rules/Dai
 
 // const rule = new DailyCashEquivalentDepositsStructuring()
 // const rule = new CashEquivalentDepositsStructuring()
-const rule = new DailyCashEquivalentWithdrawalsStructuring()
+// const rule = new DailyCashEquivalentWithdrawalsStructuring()
+const rule = new CashEquivalentWithdrawalsStructuring()
 const account:AccountSchema = {
     id: "28dba766-60a2-4399-92ad-89655ae81f0c",
     account_type: "personal",
