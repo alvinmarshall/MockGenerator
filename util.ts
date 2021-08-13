@@ -13,21 +13,24 @@ export const writeToJson = (name, data) => {
 };
 
 export const writeToCSV = (name: string, data) => {
-    let outputDir = './output/csv';
+    let outputDir = `./output/csv/${name}`;
     fs.mkdirSync(outputDir, { recursive: true });
 
     const keys = Object.keys(data)
     if (keys.length) {
         const key = keys[0]
         const result = data[key]
-        converter.json2csv(result, (err, csv) => {
-            if (err) {
-                throw err;
-            }
-            fs.writeFile(`./output/csv/${name}.csv`, csv, function (err) {
-                if (err) console.log("error", err);
+        keys.forEach((k) =>{
+            converter.json2csv(data[k], (err, csv) => {
+                if (err) {
+                    throw err;
+                }
+                fs.writeFile(`./output/csv/${name}/${k}.csv`, csv, function (err) {
+                    if (err) console.log("error", err);
+                });
             });
-        });
+        })
+
     }
 
 

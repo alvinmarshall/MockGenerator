@@ -9,6 +9,23 @@ import {
 import {writeToJson} from './util'
 
 
+export interface AccountSchema {
+    id: string
+    correlation_id?: string
+    account_number: string
+    opening_date: string
+    account_type: string
+    account_holder_name?: string
+    account_holder: string
+    account_opening_method?: string
+    currency?: string
+    description?: string
+    extcid: string
+    expected_yearly_activity_value?: string
+    customer_id: string
+}
+
+
 // Correlation ID
 //Account Number
 //Opening Date
