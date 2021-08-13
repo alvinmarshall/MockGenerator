@@ -1,6 +1,6 @@
 import {Transactions} from "../transactions";
 import {AccountSchema} from "../../account";
-import {formatDateToTransaction, writeToJson} from "../../util";
+import {formatDateToTransaction, shuffleArray, writeToJson} from "../../util";
 import {mocker} from "mocker-data-generator";
 import {TransactionDto} from "../transaction_dto";
 
@@ -75,7 +75,7 @@ export class CashEquivalentWithdrawalsStructuring extends Transactions {
                 })
                 const result: TransactionDto = {
                     account: account, transaction: data[name][0],
-                    historicalTransactions: data[name],
+                    historicalTransactions: shuffleArray(data[name]),
                     peerGroupBehaviorProfiles: [],
                     entityFocusClassification: []
                 }
