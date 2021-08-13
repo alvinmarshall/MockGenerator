@@ -13,6 +13,7 @@ import {CashEquivalentDepositsStructuring} from "./transaction/rules/CashEquival
 import {DailyCashEquivalentWithdrawalsStructuring} from "./transaction/rules/DailyCashEquivalentWithdrawalsStructuring";
 import {CashEquivalentWithdrawalsStructuring} from "./transaction/rules/CashEquivalentWithdrawalsStructuring";
 import {CashEquivalentCardPaymentsStructuring} from "./transaction/rules/CashEquivalentCardPaymentsStructuring";
+import {CashEquivalentLoanPaymentsStructuring} from "./transaction/rules/CashEquivalentLoanPaymentsStructuring";
 
 // const total = 100
 //
@@ -31,7 +32,8 @@ import {CashEquivalentCardPaymentsStructuring} from "./transaction/rules/CashEqu
 // const rule = new CashEquivalentDepositsStructuring()
 // const rule = new DailyCashEquivalentWithdrawalsStructuring()
 // const rule = new CashEquivalentWithdrawalsStructuring()
-const rule = new CashEquivalentCardPaymentsStructuring()
+// const rule = new CashEquivalentCardPaymentsStructuring()
+const rule = new CashEquivalentLoanPaymentsStructuring()
 const account:AccountSchema = {
     id: "28dba766-60a2-4399-92ad-89655ae81f0c",
     account_type: "personal",
