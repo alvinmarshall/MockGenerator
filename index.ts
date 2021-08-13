@@ -9,6 +9,7 @@ import {generateAddresses} from './address'
 import {generateBeneficialOwners} from './beneficial_owners'
 import {generateDocuments} from "./document";
 import {DailyCashEquivalentDepositsStructuring} from "./transaction/rules/DailyCashEquivalentDepositsStructuring";
+import {CashEquivalentDepositsStructuring} from "./transaction/rules/CashEquivalentDepositsStructuring";
 
 // const total = 100
 //
@@ -23,7 +24,8 @@ import {DailyCashEquivalentDepositsStructuring} from "./transaction/rules/DailyC
 // generateCountriesOfOperation(total)
 // generateDocuments(total)
 
-const rule = new DailyCashEquivalentDepositsStructuring()
+// const rule = new DailyCashEquivalentDepositsStructuring()
+const rule = new CashEquivalentDepositsStructuring()
 const account:AccountSchema = {
     id: "28dba766-60a2-4399-92ad-89655ae81f0c",
     account_type: "personal",

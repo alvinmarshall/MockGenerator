@@ -1,4 +1,5 @@
+import {AccountSchema} from "../account";
 
 export abstract class Transactions {
-    abstract generateRule(customer, data):void
+    abstract generateRule(account: AccountSchema): void
 }
