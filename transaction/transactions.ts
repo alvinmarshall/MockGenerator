@@ -1,5 +1,5 @@
-import {AccountSchema} from "../account";
+import {AccountSchema} from "../kyc/account";
 
 export abstract class Transactions {
-    abstract generateRule(account: AccountSchema): void
+    abstract generateRule(account: AccountSchema): any[]
 }

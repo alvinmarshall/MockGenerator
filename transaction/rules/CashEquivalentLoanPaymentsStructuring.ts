@@ -1,11 +1,12 @@
 import {Transactions} from "../transactions";
-import {AccountSchema} from "../../account";
-import {formatDateToTransaction, shuffleArray, writeToJson} from "../../util";
+import {AccountSchema} from "../../kyc/account";
+import {formatDateToTransaction, shuffleArray} from "../../util";
 import {mocker} from "mocker-data-generator";
 import {TransactionDto} from "../transaction_dto";
 
 export class CashEquivalentLoanPaymentsStructuring extends Transactions {
-    generateRule(account: AccountSchema): void {
+    generateRule(account: AccountSchema): any[] {
+        let results = []
         let total = 7;
         const amount = [8200, 8700, 8400, 800, 2000, 6000, 8200]
         const transaction = {
@@ -79,8 +80,10 @@ export class CashEquivalentLoanPaymentsStructuring extends Transactions {
                     entityFocusClassification: []
                 }
                 // console.log('data', JSON.stringify(result))
-                writeToJson(rule, result)
+                // writeToJson(rule, result)
+                results = result.historicalTransactions
             })
+        return results
     }
 
 }

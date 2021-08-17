@@ -1,6 +1,6 @@
 import {mocker} from "mocker-data-generator"
-import {genCorrelationId, document_type, id_document_url} from "./constant"
-import {writeToJson} from './util'
+import {genCorrelationId, document_type, id_document_url} from "../constant"
+import {writeToJson} from '../util'
 
 
 // Correlation ID
@@ -9,7 +9,7 @@ import {writeToJson} from './util'
 export const generateDocuments = (total: number) => {
     const documents = {
         correlation_id: {
-            values: genCorrelationId(total)
+            values: [0]
         },
         document_type: {
             values: document_type
@@ -24,6 +24,11 @@ export const generateDocuments = (total: number) => {
         .schema(name, documents, total)
         .build((err, data) => {
             if (err) throw err
+            const correlationList = genCorrelationId(total);
+            data[name] = data[name].map((v,index) =>{
+                v.correlation_id = correlationList[index]
+                return v
+            })
             // console.log('data', JSON.stringify(data))
             writeToJson(name, data)
         })

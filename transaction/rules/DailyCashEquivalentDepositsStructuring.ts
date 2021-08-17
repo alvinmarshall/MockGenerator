@@ -1,11 +1,11 @@
 import {Transactions} from "../transactions";
-import {AccountSchema} from "../../account";
+import {AccountSchema} from "../../kyc/account";
 import {mocker} from "mocker-data-generator";
 import {TransactionDto} from "../transaction_dto";
-import {writeToJson} from "../../util";
 
 export class DailyCashEquivalentDepositsStructuring extends Transactions {
-    generateRule(account: AccountSchema): void {
+    generateRule(account: AccountSchema): any[] {
+        let results = []
         const total = 5
         const amount = [2000, 800, 4000, 500, 2000]
         const transaction = {
@@ -76,8 +76,10 @@ export class DailyCashEquivalentDepositsStructuring extends Transactions {
                     entityFocusClassification: []
                 }
                 // console.log('data', JSON.stringify(result))
-                writeToJson(rule, result)
+                // writeToJson(rule, result)
+                results = result.historicalTransactions
             })
+        return results
 
 
     }

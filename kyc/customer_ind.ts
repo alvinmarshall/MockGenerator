@@ -1,5 +1,5 @@
 import {mocker} from "mocker-data-generator"
-import {writeToJson} from './util'
+import {writeToJson} from '../util'
 
 import {
     genCorrelationId,
@@ -12,14 +12,15 @@ import {
     annual_income,
     gender,
     country_of_taxation
-} from './constant'
+} from '../constant'
+import {getKnownCustomers} from "./known";
 
 export const generateCustomerInd = (total: number = 5) => {
-    const correlationIds = genCorrelationId(total)
+    let results = []
 
     const customer_ind = {
         correlation_id: {
-            values: correlationIds
+            values: [0]
         },
         account_opening_date: {
             function: function () {
@@ -120,7 +121,31 @@ export const generateCustomerInd = (total: number = 5) => {
         .build((err, data) => {
             if (err) throw err
             // console.log('data', JSON.stringify(data))
+            const correlationList = genCorrelationId(total);
+            data[name] = data[name].map((v,index) =>{
+                v.correlation_id = correlationList[index]
+                return v
+            })
+            if (data[name].length == 100) {
+                const out = data[name]
+                let part1 = out.slice(0, 40)
+                const part2 = out.slice(40, 100)
+                part1 = part1.map((v, index) => {
+                    const knownCustomer = getKnownCustomers()[index];
+                    v.first_name = knownCustomer.first_name
+                    v.last_name = knownCustomer.last_name
+                    v.gender = 'M'
+                    const first = v.first_name.substring(0, 1).toLowerCase();
+                    const last = v.last_name.substring(0, 3).toLowerCase();
+                    v.email = `${first}${last}@gmail.com`
+                    return v
+                })
+                const newOut = part1.concat(part2)
+                data[name] = newOut
+            }
+
             writeToJson(name, data)
+            results = data[name]
 
         })
 

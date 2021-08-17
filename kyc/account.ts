@@ -5,8 +5,9 @@ import {
     currency,
     account_opening_method,
     account_type
-} from "./constant"
-import {writeToJson} from './util'
+} from "../constant"
+import {toTitles, writeToJson} from '../util'
+import {getKnownCustomers} from "./known";
 
 
 export interface AccountSchema {
@@ -37,9 +38,10 @@ export interface AccountSchema {
 //Expected Yearly Activity Value
 
 export const generateAccount = (total: number) => {
+    let results = []
     const country_of_operation = {
         correlation_id: {
-            values: genCorrelationId(total)
+            values: [0]
         },
         account_number: {
             function: function () {
@@ -89,9 +91,31 @@ export const generateAccount = (total: number) => {
         .schema(name, country_of_operation, total)
         .build((err, data) => {
             if (err) throw err
+            const correlationList = genCorrelationId(total);
+            data[name] = data[name].map((v,index) =>{
+                v.correlation_id = correlationList[index]
+                return v
+            })
             // console.log('data', JSON.stringify(data))
+            if (data[name].length == 100) {
+                const out = data[name]
+                let part1 = out.slice(0, 40)
+                const part2 = out.slice(40, 100)
+                part1 = part1.map((v, index) => {
+                    const knownCustomer = getKnownCustomers()[index];
+                    const first = knownCustomer.first_name
+                    const last = knownCustomer.last_name
+                    v.account_holder_name = `${first} ${last}`.trim()
+                    v.account_holder_name = toTitles(v.account_holder_name)
+                    return v
+                })
+                const newOut = part1.concat(part2)
+                data[name] = newOut
+            }
+            results = data[name]
             writeToJson(name, data)
         })
+    return results
 
 }
 

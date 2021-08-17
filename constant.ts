@@ -2,8 +2,8 @@
 export const genCorrelationId = (limit: number = 100): string[] => {
     const correlationId = 1000
     const output = []
-    for (let i = 1; i < limit; i++) {
-        output.push("" + correlationId + i)
+    for (let i = 0; i < limit; ++i) {
+        output.push(`${correlationId}` + i)
     }
     return output
 
@@ -32,13 +32,13 @@ export const country_of_secondary_citizenship = [
     "US", "", "UK", "GH"
 ]
 export const country_of_citizenship = [
-    "GH", "US", "UK"
+    "US", "UK"
 ]
 export const country_of_residence = [
-    "GH", "US", "UK"
+    "US", "UK"
 ]
 export const country_of_taxation = [
-    "GH", "US", "UK"
+    "US", "UK"
 ]
 
 export const annual_income = [
@@ -96,7 +96,7 @@ export const document_type = [
 ]
 
 export const countries_of_operation = [
-    "GH", "US", "UK"
+    "US", "UK"
 ]
 
 export const account_opening_method = [
