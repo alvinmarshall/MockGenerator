@@ -15,6 +15,8 @@ import {CashEquivalentWithdrawalsStructuring} from "./transaction/rules/CashEqui
 import {CashEquivalentCardPaymentsStructuring} from "./transaction/rules/CashEquivalentCardPaymentsStructuring";
 import {CashEquivalentLoanPaymentsStructuring} from "./transaction/rules/CashEquivalentLoanPaymentsStructuring";
 import {IncomingHighRiskFundTransfersStructuring} from "./transaction/rules/IncomingHighRiskFundTransfersStructuring";
+import {ComplexLayeringOutgoing} from "./transaction/rules/ComplexLayeringOutgoing";
+import {PartyGroupAccountSchema, PartyGroupSchema} from "./transaction/partygroup";
 
 const total = 10
 //
@@ -36,8 +38,9 @@ const total = 10
 // const rule = new CashEquivalentCardPaymentsStructuring()
 // const rule = new CashEquivalentLoanPaymentsStructuring()
 
-const rule = new IncomingHighRiskFundTransfersStructuring()
-const account:AccountSchema = {
+// const rule = new IncomingHighRiskFundTransfersStructuring()
+const rule = new ComplexLayeringOutgoing()
+const account: AccountSchema = {
     id: "28dba766-60a2-4399-92ad-89655ae81f0c",
     account_type: "personal",
     account_number: "97228831",
@@ -47,4 +50,26 @@ const account:AccountSchema = {
     opening_date: "2016-07-22"
 
 }
-rule.generateRule(account)
+
+const partyGroup: PartyGroupSchema = {
+    accounts: [],
+    external: false,
+    id: "6122627d-7697-4905-8147-fe6f57adbe89",
+    name: account.account_holder
+
+}
+
+const partyAccount: PartyGroupAccountSchema = {
+    account_number: account.account_number,
+    customer_id: account.customer_id,
+    entity_type: "ACCOUNT",
+    external: false,
+    id: account.customer_id,
+    name: account.account_holder,
+    party_group_id: partyGroup.id
+
+}
+partyGroup.accounts = [partyAccount]
+
+
+rule.generateRule(account, partyGroup)

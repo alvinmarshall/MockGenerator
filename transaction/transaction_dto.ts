@@ -1,10 +1,14 @@
+import {PartyGroupSchema} from "./partygroup";
+
 export interface TransactionDto {
     account: Account;
     transaction: Transaction;
     historicalTransactions?: (HistoricalTransactionsEntity)[] | null;
     peerGroupBehaviorProfiles?: (null)[] | null;
     entityFocusClassification?: (null)[] | null;
+    partyGroupList?: (PartyGroupSchema)[] | null
 }
+
 export interface Account {
     id: string;
     account_type: string;
@@ -14,6 +18,7 @@ export interface Account {
     account_holder: string;
     opening_date: string;
 }
+
 export interface Transaction {
     transactionNumber: string;
     debitCredit: string;
@@ -30,6 +35,7 @@ export interface Transaction {
     beneficiaryId: string;
     branch?: null;
 }
+
 export interface HistoricalTransactionsEntity {
     transactionNumber: string | number;
     debitCredit: string;
