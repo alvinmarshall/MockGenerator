@@ -22,6 +22,7 @@ import {DailyIncomingFundTransfersStructuring} from "./transaction/rules/DailyIn
 import {DailyOutgoingFundTransfersStructuring} from "./transaction/rules/DailyOutgoingFundTransfersStructuring";
 import {ExcessiveDailyIncomingFundTransfers} from "./transaction/rules/ExcessiveDailyIncomingFundTransfers";
 import {ExcessiveDailyOutgoingFundTransfers} from "./transaction/rules/ExcessiveDailyOutgoingFundTransfers";
+import {FlowThroughFundsInvestment} from "./transaction/rules/FlowThroughFundsInvestment";
 
 const total = 10
 //
@@ -49,7 +50,8 @@ const total = 10
 // const rule = new DailyIncomingFundTransfersStructuring()
 // const rule = new DailyOutgoingFundTransfersStructuring()
 // const rule = new ExcessiveDailyIncomingFundTransfers()
-const rule = new ExcessiveDailyOutgoingFundTransfers()
+// const rule = new ExcessiveDailyOutgoingFundTransfers()
+const rule = new FlowThroughFundsInvestment()
 const account: AccountSchema = {
     id: "28dba766-60a2-4399-92ad-89655ae81f0c",
     account_type: "personal",
