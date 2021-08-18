@@ -32,7 +32,10 @@ export class ComplexLayeringOutgoing extends Transactions {
                 values: ['']
             },
             date: {
-                values: ['11/26/2020 20:01:12']
+                function: function () {
+                    const date = this.faker.date.recent(1)
+                    return formatDateToTransaction(date)
+                }
             },
             country: {
                 values: ['US']
