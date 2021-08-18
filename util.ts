@@ -57,3 +57,19 @@ export const shuffleArray = (array: any[]) => {
     return newArr
 }
 
+export const loadFile = (filePath: string) => {
+    const rawdata = fs.readFileSync(filePath);
+    // @ts-ignore
+    return JSON.parse(rawdata);
+}
+
+export const toTitles = (s) => s.replace(/\w\S*/g, (t) => t.charAt(0).toUpperCase() + t.substr(1).toLowerCase());
+
+export const generateRandomAmount = (lowerBound: number, upperBound: number, limit: number, rate: number = 100) => {
+    const output = []
+    for (let i = 0; i < limit; i++) {
+        let value = Math.floor(Math.random() * (upperBound - lowerBound + rate) + lowerBound);
+        output.push(value);
+    }
+    return output;
+}
