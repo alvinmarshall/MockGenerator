@@ -29,7 +29,7 @@ export class ComplexLayeringIncoming extends Transactions {
                 values: [0]
             },
             desc: {
-                values: ['']
+                values: ['Fund transfer to internal account']
             },
             date: {
                 function: function () {
