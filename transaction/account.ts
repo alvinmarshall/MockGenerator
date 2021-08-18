@@ -13,6 +13,7 @@ import {DailyOutgoingFundTransfersStructuring} from "./rules/DailyOutgoingFundTr
 import {ExcessiveDailyIncomingFundTransfers} from "./rules/ExcessiveDailyIncomingFundTransfers";
 import {ComplexLayeringOutgoing} from "./rules/ComplexLayeringOutgoing";
 import {ComplexLayeringIncoming} from "./rules/ComplexLayeringIncoming";
+import {ExcessiveDailyOutgoingFundTransfers} from "./rules/ExcessiveDailyOutgoingFundTransfers";
 
 const rule1 = new DailyCashEquivalentDepositsStructuring()
 const rule2 = new CashEquivalentDepositsStructuring()
@@ -27,6 +28,8 @@ const rule9 = new DailyOutgoingFundTransfersStructuring()
 const rule10 = new ExcessiveDailyIncomingFundTransfers()
 const rule11 = new ComplexLayeringOutgoing()
 const rule12 = new ComplexLayeringIncoming()
+const rule13 = new ExcessiveDailyOutgoingFundTransfers()
+
 
 let total = 100;
 const genAccounts = generateAccount(total)
@@ -69,6 +72,7 @@ output.forEach(value => {
         ...rule10.generateRule(value),
         ...rule11.generateRule(value),
         ...rule12.generateRule(value),
+        ...rule13.generateRule(value),
     ]
     // const acc_name = `${value.account_holder}_transaction`
     // writeToCSV(acc_name,{"transaction":results})
