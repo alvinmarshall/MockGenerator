@@ -6,7 +6,7 @@ import {formatDateToTransaction, writeToJson} from "../../util";
 import {PartyGroupSchema} from "../partygroup";
 
 export class ComplexLayeringOutgoing extends Transactions {
-    generateRule(account: AccountSchema, partyGroup: PartyGroupSchema): any[] {
+    generateRule(account: AccountSchema, partyGroup?: PartyGroupSchema): any[] {
         let results = []
         const total = 5
         const amount = [20000000, 80000000, 40000000, 50000000, 10000000]
@@ -85,7 +85,6 @@ export class ComplexLayeringOutgoing extends Transactions {
             .schema(name, transaction, total)
             .schema(oppositeAccountName, oppositeAccount, total)
             .build((err, data) => {
-                console.log('da', data)
                 if (err) throw err
                 data[name] = data[name].map((v, index) => {
                     v.amount = amount[index]
@@ -96,12 +95,16 @@ export class ComplexLayeringOutgoing extends Transactions {
                     v.debitCredit = debitCredit[index]
                     return v
                 })
+                const partyList = []
+                if (partyGroup){
+                    partyList.push(partyGroup)
+                }
                 const result: TransactionDto = {
                     account: account, transaction: data[name][0],
                     historicalTransactions: data[name].slice(1, 5),
                     peerGroupBehaviorProfiles: [],
                     entityFocusClassification: [],
-                    partyGroupList: [partyGroup]
+                    partyGroupList: partyList
                 }
                 // console.log('data', JSON.stringify(result))
                 writeToJson(rule, result)

@@ -7,6 +7,12 @@ import {CashEquivalentLoanPaymentsStructuring} from "./rules/CashEquivalentLoanP
 import {AccountSchema, generateAccount} from "../kyc/account";
 import {v4 as uuidv4} from 'uuid';
 import {writeToCSV} from "../util";
+import {IncomingHighRiskFundTransfersStructuring} from "./rules/IncomingHighRiskFundTransfersStructuring";
+import {DailyIncomingFundTransfersStructuring} from "./rules/DailyIncomingFundTransfersStructuring";
+import {DailyOutgoingFundTransfersStructuring} from "./rules/DailyOutgoingFundTransfersStructuring";
+import {ExcessiveDailyIncomingFundTransfers} from "./rules/ExcessiveDailyIncomingFundTransfers";
+import {ComplexLayeringOutgoing} from "./rules/ComplexLayeringOutgoing";
+import {ComplexLayeringIncoming} from "./rules/ComplexLayeringIncoming";
 
 const rule1 = new DailyCashEquivalentDepositsStructuring()
 const rule2 = new CashEquivalentDepositsStructuring()
@@ -14,6 +20,13 @@ const rule3 = new DailyCashEquivalentWithdrawalsStructuring()
 const rule4 = new CashEquivalentWithdrawalsStructuring()
 const rule5 = new CashEquivalentCardPaymentsStructuring()
 const rule6 = new CashEquivalentLoanPaymentsStructuring()
+
+const rule7 = new IncomingHighRiskFundTransfersStructuring()
+const rule8 = new DailyIncomingFundTransfersStructuring()
+const rule9 = new DailyOutgoingFundTransfersStructuring()
+const rule10 = new ExcessiveDailyIncomingFundTransfers()
+const rule11 = new ComplexLayeringOutgoing()
+const rule12 = new ComplexLayeringIncoming()
 
 let total = 100;
 const genAccounts = generateAccount(total)
@@ -49,7 +62,13 @@ output.forEach(value => {
         ...rule3.generateRule(value),
         ...rule4.generateRule(value),
         ...rule5.generateRule(value),
-        ...rule6.generateRule(value)
+        ...rule6.generateRule(value),
+        ...rule7.generateRule(value),
+        ...rule8.generateRule(value),
+        ...rule9.generateRule(value),
+        ...rule10.generateRule(value),
+        ...rule11.generateRule(value),
+        ...rule12.generateRule(value),
     ]
     // const acc_name = `${value.account_holder}_transaction`
     // writeToCSV(acc_name,{"transaction":results})
@@ -57,5 +76,5 @@ output.forEach(value => {
 
 })
 
-writeToCSV("acc_transactions", {"transaction": rulesResp})
+writeToCSV("acc_transactions", {"transactions": rulesResp})
 
