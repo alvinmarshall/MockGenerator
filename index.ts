@@ -21,6 +21,7 @@ import {ComplexLayeringIncoming} from "./transaction/rules/ComplexLayeringIncomi
 import {DailyIncomingFundTransfersStructuring} from "./transaction/rules/DailyIncomingFundTransfersStructuring";
 import {DailyOutgoingFundTransfersStructuring} from "./transaction/rules/DailyOutgoingFundTransfersStructuring";
 import {ExcessiveDailyIncomingFundTransfers} from "./transaction/rules/ExcessiveDailyIncomingFundTransfers";
+import {ExcessiveDailyOutgoingFundTransfers} from "./transaction/rules/ExcessiveDailyOutgoingFundTransfers";
 
 const total = 10
 //
@@ -47,7 +48,8 @@ const total = 10
 // const rule = new ComplexLayeringIncoming()
 // const rule = new DailyIncomingFundTransfersStructuring()
 // const rule = new DailyOutgoingFundTransfersStructuring()
-const rule = new ExcessiveDailyIncomingFundTransfers()
+// const rule = new ExcessiveDailyIncomingFundTransfers()
+const rule = new ExcessiveDailyOutgoingFundTransfers()
 const account: AccountSchema = {
     id: "28dba766-60a2-4399-92ad-89655ae81f0c",
     account_type: "personal",
