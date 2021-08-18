@@ -17,6 +17,8 @@ import {CashEquivalentLoanPaymentsStructuring} from "./transaction/rules/CashEqu
 import {IncomingHighRiskFundTransfersStructuring} from "./transaction/rules/IncomingHighRiskFundTransfersStructuring";
 import {ComplexLayeringOutgoing} from "./transaction/rules/ComplexLayeringOutgoing";
 import {PartyGroupAccountSchema, PartyGroupSchema} from "./transaction/partygroup";
+import {ComplexLayeringIncoming} from "./transaction/rules/ComplexLayeringIncoming";
+import {DailyIncomingFundTransfersStructuring} from "./transaction/rules/DailyIncomingFundTransfersStructuring";
 
 const total = 10
 //
@@ -39,7 +41,9 @@ const total = 10
 // const rule = new CashEquivalentLoanPaymentsStructuring()
 
 // const rule = new IncomingHighRiskFundTransfersStructuring()
-const rule = new ComplexLayeringOutgoing()
+// const rule = new ComplexLayeringOutgoing()
+// const rule = new ComplexLayeringIncoming()
+const rule = new DailyIncomingFundTransfersStructuring()
 const account: AccountSchema = {
     id: "28dba766-60a2-4399-92ad-89655ae81f0c",
     account_type: "personal",
@@ -72,4 +76,4 @@ const partyAccount: PartyGroupAccountSchema = {
 partyGroup.accounts = [partyAccount]
 
 
-rule.generateRule(account, partyGroup)
+rule.generateRule(account)
