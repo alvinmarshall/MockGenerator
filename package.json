@@ -4,20 +4,26 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node index.ts"
+    "start": "ts-node index.ts",
+    "test": "ts-node transaction/account.ts",
+    "try": "ts-node try.ts"
   },
   "dependencies": {
     "chance": "^1.1.7",
+    "change-case": "^4.1.2",
     "faker": "^5.5.3",
     "global": "^4.4.0",
     "json-2-csv": "^3.10.3",
     "json-schema-faker": "^0.5.0-rcv.34",
     "mocker-data-generator": "^2.12.0",
     "ts-node": "^9.1.1",
-    "typescript": "^4.2.4"
+    "typescript": "^4.2.4",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@types/chance": "^1.1.1",
+    "@types/change-case": "^2.3.1",
     "@types/node": "^15.0.1",
-    "@types/chance": "^1.1.1"
+    "@types/uuid": "^8.3.1"
   }
 }
