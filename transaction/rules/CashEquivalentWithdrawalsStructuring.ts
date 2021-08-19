@@ -19,20 +19,26 @@ export class CashEquivalentWithdrawalsStructuring extends Transactions {
                     return phone
                 }
             },
+            accountNumber: {
+                values: [account.account_number]
+            },
             debitCredit: {
                 values: ["C"]
             },
             amount: {
                 values: [0]
             },
-            desc: {
-                values: ['Fund transfer to internal account']
-            },
             date: {
                 function: function () {
                     const date = this.faker.date.between('2020-01-01', '2020-12-31')
                     return formatDateToTransaction(date)
                 }
+            },
+            desc: {
+                values: ['Fund transfer to internal account']
+            },
+            type: {
+                values: ['Fund transfer']
             },
             country: {
                 values: ['US']
@@ -43,23 +49,26 @@ export class CashEquivalentWithdrawalsStructuring extends Transactions {
             code: {
                 values: ['CCE-OUT']
             },
-            type: {
-                values: ['Fund transfer']
-            },
-            accountNumber: {
-                values: [account.account_number]
+            customerId: {
+                values: [account.customer_id]
             },
             accountType: {
                 values: [account.account_type]
             },
-            customerId: {
-                values: [account.customer_id]
+            oppAccountId: {
+                values: ['']
+            },
+            oppAccountNumber: {
+                values: ['']
+            },
+            oppOrgKey: {
+                values: ['']
             },
             beneficiaryId: {
                 values: ['']
             },
             branch: {
-                values: [null]
+                values: ['']
             }
 
         }
