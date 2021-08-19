@@ -18,6 +18,7 @@ import {FlowThroughFundsInvestment} from "./rules/FlowThroughFundsInvestment";
 import {FlowThroughFundsLongPeriod} from "./rules/FlowThroughFundsLongPeriod";
 import {transactionHeaders} from "./transactions";
 import {FlowThroughFundsAll} from "./rules/FlowThroughFundsAll";
+import {FlowThroughFundsSLL} from "./rules/FlowThroughFundsSLL";
 
 const rule1 = new DailyCashEquivalentDepositsStructuring()
 const rule2 = new CashEquivalentDepositsStructuring()
@@ -33,9 +34,11 @@ const rule10 = new ExcessiveDailyIncomingFundTransfers()
 const rule11 = new ComplexLayeringOutgoing()
 const rule12 = new ComplexLayeringIncoming()
 const rule13 = new ExcessiveDailyOutgoingFundTransfers()
+
 const rule14 = new FlowThroughFundsInvestment()
 const rule15 = new FlowThroughFundsLongPeriod()
 const rule16 = new FlowThroughFundsAll()
+const rule17 = new FlowThroughFundsSLL()
 
 
 let total = 100;
@@ -83,6 +86,7 @@ output.forEach(value => {
         ...rule14.generateRule(value),
         ...rule15.generateRule(value),
         ...rule16.generateRule(value),
+        ...rule17.generateRule(value),
     ]
     // const acc_name = `${value.account_holder}_transaction`
     // writeToCSV(acc_name,{"transaction":results})
