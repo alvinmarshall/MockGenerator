@@ -5,7 +5,7 @@ import {mocker} from "mocker-data-generator";
 import {TransactionDto} from "../transaction_dto";
 
 export class CashEquivalentCardPaymentsStructuring extends Transactions {
-    generateRule(account: AccountSchema):any[] {
+    generateRule(account: AccountSchema): any[] {
         let results = []
         let total = 5;
         const amount = [8200, 8700, 8400, 500, 2000]
@@ -19,20 +19,26 @@ export class CashEquivalentCardPaymentsStructuring extends Transactions {
                     return phone
                 }
             },
+            accountNumber: {
+                values: [account.account_number]
+            },
             debitCredit: {
                 values: ["D"]
             },
             amount: {
                 values: [0]
             },
-            desc: {
-                values: ['Cash Equivalent Card Payments Structuring']
-            },
             date: {
                 function: function () {
                     const date = this.faker.date.between('2020-01-01', '2020-12-31')
                     return formatDateToTransaction(date)
                 }
+            },
+            desc: {
+                values: ['Cash Equivalent Card Payments Structuring']
+            },
+            type: {
+                values: ['Fund transfer']
             },
             country: {
                 values: ['US']
@@ -43,23 +49,26 @@ export class CashEquivalentCardPaymentsStructuring extends Transactions {
             code: {
                 values: ['CEC-INN']
             },
-            type: {
-                values: ['Fund transfer']
-            },
-            accountNumber: {
-                values: [account.account_number]
+            customerId: {
+                values: [account.customer_id]
             },
             accountType: {
                 values: [account.account_type]
             },
-            customerId: {
-                values: [account.customer_id]
+            oppAccountId: {
+                values: ['']
+            },
+            oppAccountNumber: {
+                values: ['']
+            },
+            oppOrgKey: {
+                values: ['']
             },
             beneficiaryId: {
                 values: ['']
             },
             branch: {
-                values: [null]
+                values: ['']
             }
 
         }
@@ -83,6 +92,6 @@ export class CashEquivalentCardPaymentsStructuring extends Transactions {
                 // writeToJson(rule, result)
                 results = result.historicalTransactions
             })
-    return results
+        return results
     }
 }
