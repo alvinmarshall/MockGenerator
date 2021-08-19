@@ -10,6 +10,15 @@ import {genCorrelationId, country_of_residence} from "../constant"
 
 
 export const generateAddresses = (total: number = 5) => {
+    const headers = [
+        'Correlation ID',
+        'Address 1',
+        'Address 2',
+        'City',
+        'State',
+        'Zip',
+        'Country'
+    ]
     const addresses = {
         correlation_id: {
             values: [0]
@@ -37,11 +46,11 @@ export const generateAddresses = (total: number = 5) => {
         .build((err, data) => {
             if (err) throw err
             const correlationList = genCorrelationId(total);
-            data[name] = data[name].map((v,index) =>{
+            data[name] = data[name].map((v, index) => {
                 v.correlation_id = correlationList[index]
                 return v
             })
             // console.log('data', JSON.stringify(data))
-            writeToJson(name, data)
+            writeToJson(name, data, headers)
         })
 }

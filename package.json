@@ -6,7 +6,7 @@
   "scripts": {
     "start": "ts-node index.ts",
     "test": "ts-node transaction/account.ts",
-    "try": "ts-node try.ts"
+    "try": "ts-node test/csv-header.test.ts"
   },
   "dependencies": {
     "chance": "^1.1.7",

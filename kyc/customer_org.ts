@@ -20,6 +20,22 @@ import {writeToJson} from '../util'
 
 
 export const generateCustomerOrg = (total: number) => {
+    const headers = [
+        'Correlation ID',
+        'Account Opening Date',
+        'Customer Type',
+        'Name',
+        'Parent Company',
+        'Doing Business As',
+        'Country of Headquarters',
+        'Date of Incorporation',
+        'Industry',
+        'Ownership',
+        'Legal Structure',
+        'Phone Number',
+        'Email',
+        'Tax Identification Number'
+    ]
     const beneficial_owners = {
         correlation_id: {
             values: [0]
@@ -101,12 +117,12 @@ export const generateCustomerOrg = (total: number) => {
         .build((err, data) => {
             if (err) throw err
             const correlationList = genCorrelationId(total);
-            data[name] = data[name].map((v,index) =>{
+            data[name] = data[name].map((v, index) => {
                 v.correlation_id = correlationList[index]
                 return v
             })
             // console.log('data', JSON.stringify(data))
-            writeToJson(name, data)
+            writeToJson(name, data, headers)
         })
 
 }

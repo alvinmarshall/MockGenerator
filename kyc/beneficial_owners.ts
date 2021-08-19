@@ -17,9 +17,28 @@ import {writeToJson} from '../util'
 // ID Document URL
 
 export const generateBeneficialOwners = (total: number) => {
+    const headers = [
+        'Correlation ID',
+        'Internal Cust Correlation ID',
+        'First Name',
+        'Middle Name',
+        'Last Name',
+        'Social Security Number',
+        'Date of Birth',
+        'Address 1',
+        'Address 2',
+        'City',
+        'State',
+        'Zip',
+        'Country',
+        'ID Document URL'
+    ]
     const beneficial_owners = {
         correlation_id: {
             values: [0]
+        },
+        internal_cus_correlation_id: {
+            values: ['']
         },
         first_name: {
             faker: 'name.firstName'
@@ -53,6 +72,9 @@ export const generateBeneficialOwners = (total: number) => {
         city: {
             chance: 'city'
         },
+        state: {
+            chance: 'state'
+        },
         zip: {
             chance: 'zip'
         },
@@ -70,12 +92,12 @@ export const generateBeneficialOwners = (total: number) => {
         .build((err, data) => {
             if (err) throw err
             const correlationList = genCorrelationId(total);
-            data[name] = data[name].map((v,index) =>{
+            data[name] = data[name].map((v, index) => {
                 v.correlation_id = correlationList[index]
                 return v
             })
             // console.log('data', JSON.stringify(data))
-            writeToJson(name, data)
+            writeToJson(name, data, headers)
         })
 
 }

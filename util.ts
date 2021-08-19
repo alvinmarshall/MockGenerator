@@ -1,26 +1,42 @@
 import * as fs from 'fs';
 import * as converter from 'json-2-csv'
 
-export const writeToJson = (name, data) => {
+export const writeToJson = (name: string, data: any, headers = []) => {
     let outputDir = './output/json/';
     fs.mkdirSync(outputDir, {recursive: true});
     let path = `./output/json/${name}.json`;
     fs.writeFile(path, JSON.stringify(data), function (err) {
         if (err) console.log("error", err);
     });
-    writeToCSV(name, data)
+    writeToCSV(name, data, headers)
 
 };
 
-export const writeToCSV = (name: string, data) => {
+export const writeToCSV = (name: string, data, headers) => {
     let outputDir = `./output/csv/${name}`;
     fs.mkdirSync(outputDir, {recursive: true});
 
     const keys = Object.keys(data)
     if (keys.length) {
         const key = keys[0]
-        const result = data[key]
+        const newOpts = []
+
         keys.forEach((k) => {
+            if (data[key].length) {
+                // map headers
+                data[key].slice(0, 1).forEach((data) => {
+                    const output = Object.keys(data).map((k, index) => {
+                        return {field: k, title: headers[index]}
+                    })
+                    newOpts.push(...output)
+                })
+            }
+
+
+            let options = {
+                keys: newOpts
+            };
+
             converter.json2csv(data[k], (err, csv) => {
                 if (err) {
                     throw err;
@@ -28,7 +44,7 @@ export const writeToCSV = (name: string, data) => {
                 fs.writeFile(`./output/csv/${name}/${k}.csv`, csv, function (err) {
                     if (err) console.log("error", err);
                 });
-            });
+            }, options);
         })
 
     }

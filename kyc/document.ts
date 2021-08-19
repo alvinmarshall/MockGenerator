@@ -7,6 +7,11 @@ import {writeToJson} from '../util'
 //Document Type	 URL
 
 export const generateDocuments = (total: number) => {
+    const headers = [
+        'Correlation ID',
+        'Document Type',
+        'URL'
+    ]
     const documents = {
         correlation_id: {
             values: [0]
@@ -25,12 +30,12 @@ export const generateDocuments = (total: number) => {
         .build((err, data) => {
             if (err) throw err
             const correlationList = genCorrelationId(total);
-            data[name] = data[name].map((v,index) =>{
+            data[name] = data[name].map((v, index) => {
                 v.correlation_id = correlationList[index]
                 return v
             })
             // console.log('data', JSON.stringify(data))
-            writeToJson(name, data)
+            writeToJson(name, data, headers)
         })
 
 }

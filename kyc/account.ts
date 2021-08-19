@@ -39,6 +39,17 @@ export interface AccountSchema {
 
 export const generateAccount = (total: number) => {
     let results = []
+    const headers = [
+        'Correlation ID',
+        'Account Number',
+        'Opening Date',
+        'Account Type',
+        'Account Holder Name',
+        'Account Opening Method',
+        'Currency',
+        'Description',
+        'Expected Yearly Activity Value'
+    ]
     const country_of_operation = {
         correlation_id: {
             values: [0]
@@ -113,7 +124,7 @@ export const generateAccount = (total: number) => {
                 data[name] = newOut
             }
             results = data[name]
-            writeToJson(name, data)
+            writeToJson(name, data,headers)
         })
     return results
 

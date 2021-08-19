@@ -17,7 +17,27 @@ import {getKnownCustomers} from "./known";
 
 export const generateCustomerInd = (total: number = 5) => {
     let results = []
-
+    const headers = [
+        'Correlation ID',
+        'Account Opening Date',
+        'First Name',
+        'Middle Name',
+        'Last Name',
+        'Country of Citizenship',
+        'Marital Status',
+        'Email',
+        'Phone Number',
+        'Date of Birth',
+        'Social Security Number',
+        'Source of Wealth',
+        'Tax Identification Number',
+        'Country of Secondary Citizenship',
+        'Country of Residence',
+        'Occupation',
+        'Annual Income',
+        'Gender',
+        'Country of Taxation'
+    ]
     const customer_ind = {
         correlation_id: {
             values: [0]
@@ -122,7 +142,7 @@ export const generateCustomerInd = (total: number = 5) => {
             if (err) throw err
             // console.log('data', JSON.stringify(data))
             const correlationList = genCorrelationId(total);
-            data[name] = data[name].map((v,index) =>{
+            data[name] = data[name].map((v, index) => {
                 v.correlation_id = correlationList[index]
                 return v
             })
@@ -144,7 +164,7 @@ export const generateCustomerInd = (total: number = 5) => {
                 data[name] = newOut
             }
 
-            writeToJson(name, data)
+            writeToJson(name, data,headers)
             results = data[name]
 
         })

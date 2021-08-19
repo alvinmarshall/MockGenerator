@@ -8,6 +8,10 @@ import {writeToJson} from '../util'
 
 
 export const generateProductOffered = (total: number) => {
+    const headers = [
+        'Correlation ID',
+        'Product'
+    ]
     const product_offered = {
         correlation_id: {
             values: [0]
@@ -25,12 +29,12 @@ export const generateProductOffered = (total: number) => {
         .build((err, data) => {
             if (err) throw err
             const correlationList = genCorrelationId(total);
-            data[name] = data[name].map((v,index) =>{
+            data[name] = data[name].map((v, index) => {
                 v.correlation_id = correlationList[index]
                 return v
             })
             // console.log('data', JSON.stringify(data))
-            writeToJson(name, data)
+            writeToJson(name, data, headers)
         })
 
 }
