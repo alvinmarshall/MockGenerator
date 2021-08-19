@@ -20,17 +20,23 @@ export class DailyOutgoingFundTransfersStructuring extends Transactions{
                     return phone
                 }
             },
+            accountNumber: {
+                values: [account.account_number]
+            },
             debitCredit: {
                 values: ["D"]
             },
             amount: {
                 values: [0]
             },
+            date: {
+                values:['11/26/2020 20:01:12']
+            },
             desc: {
                 values: ['Fund transfer to internal account']
             },
-            date: {
-                values:['11/26/2020 20:01:12']
+            type: {
+                values: ['Fund transfer']
             },
             country: {
                 values: ['US']
@@ -41,23 +47,26 @@ export class DailyOutgoingFundTransfersStructuring extends Transactions{
             code: {
                 values: ['EFT-OUT']
             },
-            type: {
-                values: ['Fund transfer']
-            },
-            accountNumber: {
-                values: [account.account_number]
+            customerId: {
+                values: [account.customer_id]
             },
             accountType: {
                 values: [account.account_type]
             },
-            customerId: {
-                values: [account.customer_id]
+            oppAccountId: {
+                values: ['']
+            },
+            oppAccountNumber: {
+                values: ['']
+            },
+            oppOrgKey: {
+                values: ['']
             },
             beneficiaryId: {
                 values: ['']
             },
             branch: {
-                values: [null]
+                values: ['']
             }
 
         }
