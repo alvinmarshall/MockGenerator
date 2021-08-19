@@ -21,21 +21,23 @@ export class IncomingHighRiskFundTransfersStructuring extends Transactions {
                     return phone
                 }
             },
+            accountNumber: {
+                values: [account.account_number]
+            },
             debitCredit: {
                 values: ["D"]
             },
             amount: {
                 values: [0]
             },
+            date: {
+                values: ['11/26/2020 20:01:12']
+            },
             desc: {
                 values: ['Fund transfer to internal account']
             },
-            date: {
-                values: ['11/26/2020 20:01:12']
-                // function: function () {
-                //     const date = this.faker.date.recent(1)
-                //     return formatDateToTransaction(date)
-                // }
+            type: {
+                values: ['Fund transfer']
             },
             country: {
                 values: ['US']
@@ -46,44 +48,61 @@ export class IncomingHighRiskFundTransfersStructuring extends Transactions {
             code: {
                 values: ['IFT-INN']
             },
-            type: {
-                values: ['Fund transfer']
-            },
-            accountNumber: {
-                values: [account.account_number]
+            customerId: {
+                values: [account.customer_id]
             },
             accountType: {
                 values: [account.account_type]
             },
-            customerId: {
-                values: [account.customer_id]
-            },
             oppAccountId: {
                 values: ['4455533333']
-                // function: function () {
-                //     const phone = `${this.faker.phone.phoneNumber("###############")}`
-                //     if (phone.substring(0, 1) == '0') {
-                //         return phone.replace(/[0-9]]/, '1')
-                //     }
-                //     return phone
-                // }
+            },
+            oppAccountNumber: {
+                values: ['']
+            },
+            oppOrgKey: {
+                values: ['']
             },
             beneficiaryId: {
                 values: ['']
             },
             branch: {
-                values: [null]
+                values: ['']
             }
 
         }
+        const oppositeAccount = {
+            oppAccountId: {
+                function: function () {
+                    const phone = `${this.faker.phone.phoneNumber("###############")}`
+                    if (phone.substring(0, 1) == '0') {
+                        return phone.replace(/[0-9]]/, '1')
+                    }
+                    return phone
+                }
+            },
+            oppAccountNumber: {
+                function: function () {
+                    const phone = `${this.faker.phone.phoneNumber("###############")}`
+                    if (phone.substring(0, 1) == '0') {
+                        return phone.replace(/[0-9]]/, '1')
+                    }
+                    return phone
+                }
+            }
+        }
         let name = "transaction";
         let rule = "IncomingHighRiskFundTransfersStructuring"
+        let oppositeAccountName = "oppositeAccount"
         mocker()
             .schema(name, transaction, total)
+            .schema(oppositeAccountName, oppositeAccount, total)
             .build((err, data) => {
                 if (err) throw err
                 data[name] = data[name].map((v, index) => {
                     v.amount = amount[index]
+                    v.oppAccountId = data[oppositeAccountName][index].oppAccountId
+                    v.oppAccountNumber = data[oppositeAccountName][index].oppAccountNumber
                     return v
                 })
                 const result: TransactionDto = {
