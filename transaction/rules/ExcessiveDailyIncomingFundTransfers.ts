@@ -20,21 +20,26 @@ export class ExcessiveDailyIncomingFundTransfers extends Transactions{
                     return phone
                 }
             },
+            accountNumber: {
+                values: [account.account_number]
+            },
             debitCredit: {
                 values: ["D"]
             },
             amount: {
                 values: [2000.0]
             },
-            desc: {
-                values: ['Fund transfer to internal account']
-            },
             date: {
-                // values: ['11/26/2020 20:01:12']
                 function: function () {
                     const date = this.faker.date.recent(1)
                     return formatDateToTransaction(date)
                 }
+            },
+            desc: {
+                values: ['Fund transfer to internal account']
+            },
+            type: {
+                values: ['Fund transfer']
             },
             country: {
                 values: ['US']
@@ -45,23 +50,26 @@ export class ExcessiveDailyIncomingFundTransfers extends Transactions{
             code: {
                 values: ['EFT-INN']
             },
-            type: {
-                values: ['Fund transfer']
-            },
-            accountNumber: {
-                values: [account.account_number]
+            customerId: {
+                values: [account.customer_id]
             },
             accountType: {
                 values: [account.account_type]
             },
-            customerId: {
-                values: [account.customer_id]
+            oppAccountId: {
+                values: ['']
+            },
+            oppAccountNumber: {
+                values: ['']
+            },
+            oppOrgKey: {
+                values: ['']
             },
             beneficiaryId: {
                 values: ['']
             },
             branch: {
-                values: [null]
+                values: ['']
             }
 
         }
