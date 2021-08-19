@@ -9,7 +9,7 @@ export class DailyIncomingFundTransfersStructuring extends Transactions {
     generateRule(account: AccountSchema, partyGroup?: PartyGroupSchema): any[] {
         let results = []
         let total = 5;
-        const amount = [2000, 800, 4000, 500, 2000]
+        const amount = [2100, 700, 4040, 600, 2008]
         const transaction = {
             transactionNumber: {
                 function: function () {
@@ -30,7 +30,10 @@ export class DailyIncomingFundTransfersStructuring extends Transactions {
                 values: [0]
             },
             date: {
-                values:['11/26/2020 20:01:12']
+                function: function () {
+                    const date = this.faker.date.between('2021-07-12', '2021-07-13');
+                    return formatDateToTransaction(date)
+                }
             },
             desc: {
                 values: ['Fund transfer to internal account']

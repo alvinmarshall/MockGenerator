@@ -2,13 +2,13 @@ import {Transactions} from "../transactions";
 import {AccountSchema} from "../../kyc/account";
 import {mocker} from "mocker-data-generator";
 import {TransactionDto} from "../transaction_dto";
-import {writeToJson} from "../../util";
+import {formatDateToTransaction, writeToJson} from "../../util";
 
 export class DailyCashEquivalentDepositsStructuring extends Transactions {
     generateRule(account: AccountSchema): any[] {
         let results = []
         const total = 5
-        const amount = [2000, 800, 4000, 500, 2000]
+        const amount = [2040, 900, 3000, 770, 2140]
         const transaction = {
             transactionNumber: {
                 function: function () {
@@ -26,10 +26,13 @@ export class DailyCashEquivalentDepositsStructuring extends Transactions {
                 values: ["D"]
             },
             amount: {
-                values: [2000.0]
+                values: [0]
             },
             date: {
-                values: ['11/26/2020 20:01:12']
+                function: function () {
+                    const date = this.faker.date.between('2021-06-20', '2021-06-21');
+                    return formatDateToTransaction(date)
+                }
             },
             desc: {
                 values: ['Fund transfer to internal account']
@@ -80,7 +83,7 @@ export class DailyCashEquivalentDepositsStructuring extends Transactions {
                     entityFocusClassification: []
                 }
                 // console.log('data', JSON.stringify(result))
-                // writeToJson(rule, result)
+                writeToJson(rule, result)
                 results = result.historicalTransactions
             })
         return results

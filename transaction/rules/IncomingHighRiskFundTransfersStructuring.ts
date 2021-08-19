@@ -31,7 +31,11 @@ export class IncomingHighRiskFundTransfersStructuring extends Transactions {
                 values: [0]
             },
             date: {
-                values: ['11/26/2020 20:01:12']
+                // values: ['11/26/2020 20:01:12']
+                function: function () {
+                    const date = this.faker.date.between('2021-02-14', '2021-02-15');
+                    return formatDateToTransaction(date)
+                }
             },
             desc: {
                 values: ['Fund transfer to internal account']

@@ -1,15 +1,15 @@
 import {Transactions} from "../transactions";
 import {AccountSchema} from "../../kyc/account";
 import {PartyGroupSchema} from "../partygroup";
+import {formatDateToTransaction, shuffleArray} from "../../util";
 import {mocker} from "mocker-data-generator";
 import {TransactionDto} from "../transaction_dto";
-import {formatDateToTransaction, writeToJson} from "../../util";
 
-export class DailyOutgoingFundTransfersStructuring extends Transactions {
+export class ExcessiveHighRiskActivity  extends Transactions{
     generateRule(account: AccountSchema, partyGroup?: PartyGroupSchema): any[] {
         let results = []
         let total = 5;
-        const amount = [1400, 800, 4000, 500, 1500]
+        const amount = [5000, 1000000, 1000000, 500000, 500000]
         const transaction = {
             transactionNumber: {
                 function: function () {
@@ -24,22 +24,19 @@ export class DailyOutgoingFundTransfersStructuring extends Transactions {
                 values: [account.account_number]
             },
             debitCredit: {
-                values: ["D"]
+                values: ["C"]
             },
             amount: {
                 values: [0]
             },
             date: {
                 function: function () {
-                    const date = this.faker.date.between('2021-04-28', '2021-04-29');
+                    const date = this.faker.date.recent(1)
                     return formatDateToTransaction(date)
                 }
             },
             desc: {
-                values: ['Fund transfer to internal account']
-            },
-            type: {
-                values: ['Fund transfer']
+                values: ['Cash Equivalent Loan Payments Structuring']
             },
             country: {
                 values: ['US']
@@ -48,7 +45,10 @@ export class DailyOutgoingFundTransfersStructuring extends Transactions {
                 values: ['111']
             },
             code: {
-                values: ['EFT-OUT']
+                values: ['CEL-INN']
+            },
+            type: {
+                values: ['Fund transfer']
             },
             customerId: {
                 values: [account.customer_id]
@@ -67,52 +67,27 @@ export class DailyOutgoingFundTransfersStructuring extends Transactions {
             }
 
         }
-        const oppositeAccount = {
-            oppAccountId: {
-                function: function () {
-                    const phone = `${this.faker.phone.phoneNumber("###############")}`
-                    if (phone.substring(0, 1) == '0') {
-                        return phone.replace(/[0-9]]/, '1')
-                    }
-                    return phone
-                }
-            },
-            oppAccountNumber: {
-                function: function () {
-                    const phone = `${this.faker.phone.phoneNumber("###############")}`
-                    if (phone.substring(0, 1) == '0') {
-                        return phone.replace(/[0-9]]/, '1')
-                    }
-                    return phone
-                }
-            }
-        }
         let name = "transaction";
-        let rule = "DailyOutgoingFundTransfersStructuring"
-        const oppositeAccountName = "oppositeAccount"
+        let rule = "CashEquivalentLoanPaymentsStructuring"
         mocker()
             .schema(name, transaction, total)
-            .schema(oppositeAccountName, oppositeAccount, total)
             .build((err, data) => {
                 if (err) throw err
                 data[name] = data[name].map((v, index) => {
                     v.amount = amount[index]
-                    if (v.amount === 4000) v.oppAccountId = data[oppositeAccountName][index].oppAccountId
-                    if (v.amount === 500) v.oppAccountNumber = data[oppositeAccountName][index].oppAccountNumber
                     return v
                 })
                 const result: TransactionDto = {
                     account: account, transaction: data[name][0],
-                    historicalTransactions: data[name].slice(1, 5),
+                    historicalTransactions: data[name].slice(1,total),
                     peerGroupBehaviorProfiles: [],
                     entityFocusClassification: []
                 }
                 // console.log('data', JSON.stringify(result))
-                writeToJson(rule, result)
+                // writeToJson(rule, result)
                 results = result.historicalTransactions
             })
         return results
     }
-
 
 }

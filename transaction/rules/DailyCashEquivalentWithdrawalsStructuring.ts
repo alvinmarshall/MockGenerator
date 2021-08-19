@@ -30,7 +30,6 @@ export class DailyCashEquivalentWithdrawalsStructuring extends Transactions {
                 values: [0]
             },
             date: {
-                // values:['11/26/2020 20:01:12']
                 function: function () {
                     const date = this.faker.date.between('2020-11-25', '2020-11-26');
                     return formatDateToTransaction(date)
