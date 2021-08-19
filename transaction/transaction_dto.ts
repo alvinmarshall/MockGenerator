@@ -32,8 +32,11 @@ export interface Transaction {
     accountNumber: string;
     accountType: string;
     customerId: string;
-    beneficiaryId: string;
-    branch?: null;
+    oppAccountId?: (string) | null
+    oppAccountNumber?: (string) | null
+    oppOrgKey?: (string) | null;
+    beneficiaryId?: (string) | null;
+    branch?: (string) | null;
 }
 
 export interface HistoricalTransactionsEntity {
@@ -49,6 +52,9 @@ export interface HistoricalTransactionsEntity {
     accountNumber: string;
     accountType: string;
     customerId: string;
-    beneficiaryId: string;
-    branch?: null;
+    oppAccountId?: (string) | null
+    oppAccountNumber?: (string) | null
+    oppOrgKey?: (string) | null;
+    beneficiaryId?: (string) | null;
+    branch?: (string) | null;
 }

@@ -63,12 +63,6 @@ export class CashEquivalentWithdrawalsStructuring extends Transactions {
             },
             oppOrgKey: {
                 values: ['']
-            },
-            beneficiaryId: {
-                values: ['']
-            },
-            branch: {
-                values: ['']
             }
 
         }

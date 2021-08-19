@@ -27,20 +27,20 @@ import {FlowThroughFundsLongPeriod} from "./transaction/rules/FlowThroughFundsLo
 
 const total = 10
 //
-generateCustomerInd(total)
-generateCustomerOrg(total)
-generateBusinessUnits(total)
-generateAccount(total)
-generateAddresses(total)
-generateBeneficialOwners(total)
-generateRelationships(total)
-generateProductOffered(total)
-generateCountriesOfOperation(total)
-generateDocuments(total)
+// generateCustomerInd(total)
+// generateCustomerOrg(total)
+// generateBusinessUnits(total)
+// generateAccount(total)
+// generateAddresses(total)
+// generateBeneficialOwners(total)
+// generateRelationships(total)
+// generateProductOffered(total)
+// generateCountriesOfOperation(total)
+// generateDocuments(total)
 
 // const rule = new DailyCashEquivalentDepositsStructuring()
 // const rule = new CashEquivalentDepositsStructuring()
-// const rule = new DailyCashEquivalentWithdrawalsStructuring()
+const rule = new DailyCashEquivalentWithdrawalsStructuring()
 // const rule = new CashEquivalentWithdrawalsStructuring()
 // const rule = new CashEquivalentCardPaymentsStructuring()
 // const rule = new CashEquivalentLoanPaymentsStructuring()
@@ -54,36 +54,36 @@ generateDocuments(total)
 // const rule = new ExcessiveDailyOutgoingFundTransfers()
 // const rule = new FlowThroughFundsInvestment()
 // const rule = new FlowThroughFundsLongPeriod()
-// const account: AccountSchema = {
-//     id: "28dba766-60a2-4399-92ad-89655ae81f0c",
-//     account_type: "personal",
-//     account_number: "97228831",
-//     customer_id: "390e9c4c-e2fa-40dc-95b2-fc3d9418b9c4",
-//     extcid: "9",
-//     account_holder: "Terry Sentinella",
-//     opening_date: "2016-07-22"
-//
-// }
-//
-// const partyGroup: PartyGroupSchema = {
-//     accounts: [],
-//     external: false,
-//     id: "6122627d-7697-4905-8147-fe6f57adbe89",
-//     name: account.account_holder
-//
-// }
-//
-// const partyAccount: PartyGroupAccountSchema = {
-//     account_number: account.account_number,
-//     customer_id: account.customer_id,
-//     entity_type: "ACCOUNT",
-//     external: false,
-//     id: account.customer_id,
-//     name: account.account_holder,
-//     party_group_id: partyGroup.id
-//
-// }
-// partyGroup.accounts = [partyAccount]
-//
-//
-// rule.generateRule(account)
+const account: AccountSchema = {
+    id: "28dba766-60a2-4399-92ad-89655ae81f0c",
+    account_type: "personal",
+    account_number: "97228831",
+    customer_id: "390e9c4c-e2fa-40dc-95b2-fc3d9418b9c4",
+    extcid: "9",
+    account_holder: "Terry Sentinella",
+    opening_date: "2016-07-22"
+
+}
+
+const partyGroup: PartyGroupSchema = {
+    accounts: [],
+    external: false,
+    id: "6122627d-7697-4905-8147-fe6f57adbe89",
+    name: account.account_holder
+
+}
+
+const partyAccount: PartyGroupAccountSchema = {
+    account_number: account.account_number,
+    customer_id: account.customer_id,
+    entity_type: "ACCOUNT",
+    external: false,
+    id: account.customer_id,
+    name: account.account_holder,
+    party_group_id: partyGroup.id
+
+}
+partyGroup.accounts = [partyAccount]
+
+
+rule.generateRule(account)

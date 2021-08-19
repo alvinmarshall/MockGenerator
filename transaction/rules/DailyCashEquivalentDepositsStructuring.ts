@@ -60,12 +60,6 @@ export class DailyCashEquivalentDepositsStructuring extends Transactions {
             },
             oppOrgKey: {
                 values: ['']
-            },
-            beneficiaryId: {
-                values: ['']
-            },
-            branch: {
-                values: ['']
             }
 
         }

@@ -65,12 +65,6 @@ export class DailyCashEquivalentWithdrawalsStructuring extends Transactions {
             },
             oppOrgKey: {
                 values: ['']
-            },
-            beneficiaryId: {
-                values: ['']
-            },
-            branch: {
-                values: ['']
             }
 
         }

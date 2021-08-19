@@ -66,12 +66,6 @@ export class ComplexLayeringIncoming extends Transactions {
             },
             oppOrgKey: {
                 values: ['']
-            },
-            beneficiaryId: {
-                values: ['']
-            },
-            branch: {
-                values: ['']
             }
 
 

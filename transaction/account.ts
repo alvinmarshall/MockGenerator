@@ -16,6 +16,7 @@ import {ComplexLayeringIncoming} from "./rules/ComplexLayeringIncoming";
 import {ExcessiveDailyOutgoingFundTransfers} from "./rules/ExcessiveDailyOutgoingFundTransfers";
 import {FlowThroughFundsInvestment} from "./rules/FlowThroughFundsInvestment";
 import {FlowThroughFundsLongPeriod} from "./rules/FlowThroughFundsLongPeriod";
+import {transactionHeaders} from "./transactions";
 
 const rule1 = new DailyCashEquivalentDepositsStructuring()
 const rule2 = new CashEquivalentDepositsStructuring()
@@ -86,5 +87,5 @@ output.forEach(value => {
 
 })
 
-writeToCSV("acc_transactions", {"transactions": rulesResp})
+writeToCSV("acc_transactions", {"transactions": rulesResp},transactionHeaders)
 

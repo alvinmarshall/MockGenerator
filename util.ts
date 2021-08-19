@@ -12,7 +12,7 @@ export const writeToJson = (name: string, data: any, headers = []) => {
 
 };
 
-export const writeToCSV = (name: string, data, headers) => {
+export const writeToCSV = (name: string, data, headers = []) => {
     let outputDir = `./output/csv/${name}`;
     fs.mkdirSync(outputDir, {recursive: true});
 

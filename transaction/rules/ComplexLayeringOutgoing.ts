@@ -66,15 +66,7 @@ export class ComplexLayeringOutgoing extends Transactions {
             },
             oppOrgKey: {
                 values: ['']
-            },
-            beneficiaryId: {
-                values: ['']
-            },
-            branch: {
-                values: ['']
             }
-
-
         }
         const oppositeAccount = {
             oppAccountId: {

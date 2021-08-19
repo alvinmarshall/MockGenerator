@@ -61,12 +61,6 @@ export class DailyOutgoingFundTransfersStructuring extends Transactions{
             },
             oppOrgKey: {
                 values: ['']
-            },
-            beneficiaryId: {
-                values: ['']
-            },
-            branch: {
-                values: ['']
             }
 
         }

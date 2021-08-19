@@ -64,12 +64,6 @@ export class ExcessiveDailyIncomingFundTransfers extends Transactions{
             },
             oppOrgKey: {
                 values: ['']
-            },
-            beneficiaryId: {
-                values: ['']
-            },
-            branch: {
-                values: ['']
             }
 
         }

@@ -90,14 +90,7 @@ export class FlowThroughFundsInvestment extends Transactions {
             },
             oppOrgKey: {
                 values: ['']
-            },
-            beneficiaryId: {
-                values: ['']
-            },
-            branch: {
-                values: ['']
             }
-
         }
         let name = "transaction";
         let rule = "FlowThroughFundsInvestment"

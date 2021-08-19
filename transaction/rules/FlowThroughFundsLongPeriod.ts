@@ -90,12 +90,6 @@ export class FlowThroughFundsLongPeriod extends Transactions{
             },
             oppOrgKey: {
                 values: ['']
-            },
-            beneficiaryId: {
-                values: ['']
-            },
-            branch: {
-                values: ['']
             }
 
         }
