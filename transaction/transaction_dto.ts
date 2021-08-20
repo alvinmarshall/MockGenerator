@@ -1,9 +1,11 @@
 import {PartyGroupSchema} from "./partygroup";
+import {HistoricalBehaviorProfiles, HistoricalBehaviorProfilesEntity} from "./historicalBehaviorProfiles";
 
 export interface TransactionDto {
     account: Account;
     transaction: Transaction;
     historicalTransactions?: (HistoricalTransactionsEntity)[] | null;
+    historicalBehaviorProfiles?: (HistoricalBehaviorProfiles) | null
     peerGroupBehaviorProfiles?: (null)[] | null;
     entityFocusClassification?: (null)[] | null;
     partyGroupList?: (PartyGroupSchema)[] | null

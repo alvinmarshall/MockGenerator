@@ -1,15 +1,16 @@
 import {Transactions} from "../transactions";
 import {AccountSchema} from "../../kyc/account";
 import {PartyGroupSchema} from "../partygroup";
-import {formatDateToTransaction, shuffleArray} from "../../util";
+import {formatDateToTransaction, shuffleArray, writeToJson} from "../../util";
 import {mocker} from "mocker-data-generator";
 import {TransactionDto} from "../transaction_dto";
+import {generateHistoricalBehaviorProfiles} from "../historicalBehaviorProfiles";
 
-export class ExcessiveHighRiskActivity  extends Transactions{
+export class ExcessiveHighRiskActivity extends Transactions {
     generateRule(account: AccountSchema, partyGroup?: PartyGroupSchema): any[] {
         let results = []
-        let total = 5;
-        const amount = [5000, 1000000, 1000000, 500000, 500000]
+        let total = 4;
+        const amount = [3000000,3000000,500000,500000]
         const transaction = {
             transactionNumber: {
                 function: function () {
@@ -31,12 +32,12 @@ export class ExcessiveHighRiskActivity  extends Transactions{
             },
             date: {
                 function: function () {
-                    const date = this.faker.date.recent(1)
+                    const date = this.faker.date.between('2020-11-01','2021-08-01')
                     return formatDateToTransaction(date)
                 }
             },
             desc: {
-                values: ['Cash Equivalent Loan Payments Structuring']
+                values: ['Transfer fund to external high risk country']
             },
             country: {
                 values: ['US']
@@ -45,7 +46,7 @@ export class ExcessiveHighRiskActivity  extends Transactions{
                 values: ['111']
             },
             code: {
-                values: ['CEL-INN']
+                values: ['HIR-ALL']
             },
             type: {
                 values: ['Fund transfer']
@@ -79,12 +80,14 @@ export class ExcessiveHighRiskActivity  extends Transactions{
                 })
                 const result: TransactionDto = {
                     account: account, transaction: data[name][0],
-                    historicalTransactions: data[name].slice(1,total),
+                    historicalTransactions: data[name].slice(1, total),
                     peerGroupBehaviorProfiles: [],
-                    entityFocusClassification: []
+                    entityFocusClassification: [],
+                    partyGroupList: [partyGroup],
+                    historicalBehaviorProfiles: generateHistoricalBehaviorProfiles()
                 }
                 // console.log('data', JSON.stringify(result))
-                // writeToJson(rule, result)
+                writeToJson(rule, result)
                 results = result.historicalTransactions
             })
         return results

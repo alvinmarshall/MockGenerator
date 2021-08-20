@@ -26,6 +26,7 @@ import {FlowThroughFundsInvestment} from "./transaction/rules/FlowThroughFundsIn
 import {FlowThroughFundsLongPeriod} from "./transaction/rules/FlowThroughFundsLongPeriod";
 import {FlowThroughFundsAll} from "./transaction/rules/FlowThroughFundsAll";
 import {FlowThroughFundsSLL} from "./transaction/rules/FlowThroughFundsSLL";
+import {ExcessiveHighRiskActivity} from "./transaction/rules/ExcessiveHighRiskActivity";
 
 const total = 10
 //
@@ -57,7 +58,8 @@ const total = 10
 // const rule = new FlowThroughFundsInvestment()
 // const rule = new FlowThroughFundsLongPeriod()
 // const rule = new FlowThroughFundsAll()
-const rule = new FlowThroughFundsSLL()
+// const rule = new FlowThroughFundsSLL()
+const rule = new ExcessiveHighRiskActivity()
 
 const account: AccountSchema = {
     id: "28dba766-60a2-4399-92ad-89655ae81f0c",
@@ -91,4 +93,4 @@ const partyAccount: PartyGroupAccountSchema = {
 partyGroup.accounts = [partyAccount]
 
 
-rule.generateRule(account)
+rule.generateRule(account, partyGroup)
