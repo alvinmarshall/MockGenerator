@@ -1,14 +1,16 @@
 import {PartyGroupSchema} from "./partygroup";
-import {HistoricalBehaviorProfiles, HistoricalBehaviorProfilesEntity} from "./historicalBehaviorProfiles";
+import {HistoricalBehaviorProfiles} from "./historicalBehaviorProfiles";
+import {LogicalEntity} from "./logicalEntity";
 
 export interface TransactionDto {
-    account: Account;
+    account?: (Account)|null;
     transaction: Transaction;
     historicalTransactions?: (HistoricalTransactionsEntity)[] | null;
     historicalBehaviorProfiles?: (HistoricalBehaviorProfiles) | null
     peerGroupBehaviorProfiles?: (null)[] | null;
     entityFocusClassification?: (null)[] | null;
     partyGroupList?: (PartyGroupSchema)[] | null
+    logicalEntity?: (LogicalEntity) | null
 }
 
 export interface Account {

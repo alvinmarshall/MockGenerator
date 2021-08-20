@@ -1,13 +1,5 @@
-import {
-    account_opening_method,
-    account_type,
-    currency,
-    expected_yearly_activity_value,
-    genCorrelationId
-} from "../constant";
 import {mocker} from "mocker-data-generator";
-import {getKnownCustomers} from "../kyc/known";
-import {formatDateToTransaction, toTitles, writeToJson} from "../util";
+import {formatDateToTransaction} from "../util";
 
 export interface HistoricalBehaviorProfiles {
     historicalBehaviorProfiles?: (HistoricalBehaviorProfilesEntity)[] | null;
@@ -118,5 +110,3 @@ export const generateHistoricalBehaviorProfiles = (total: number = 10): Historic
     return results
 
 }
-
-generateHistoricalBehaviorProfiles()
