@@ -29,6 +29,7 @@ import {FlowThroughFundsSLL} from "./transaction/rules/FlowThroughFundsSLL";
 import {ExcessiveHighRiskActivity} from "./transaction/rules/ExcessiveHighRiskActivity";
 import {OutgoingHighRiskFundTransferStructuring} from "./transaction/rules/OutgoingHighRiskFundTransferStructuring";
 import {AccCirculationOfFundsInvestment} from "./transaction/rules/AccCirculationOfFundsInvestment";
+import {AccCirculationOfFundsLongPeriod} from "./transaction/rules/AccCirculationOfFundsLongPeriod";
 
 const total = 10
 //
@@ -63,18 +64,19 @@ const total = 10
 // const rule = new FlowThroughFundsSLL()
 // const rule = new ExcessiveHighRiskActivity()
 // const rule = new OutgoingHighRiskFundTransferStructuring()
-const rule = new AccCirculationOfFundsInvestment()
+// const rule = new AccCirculationOfFundsInvestment()
+const rule = new AccCirculationOfFundsLongPeriod()
 
 const account: AccountSchema = {
     id: "28dba766-60a2-4399-92ad-89655ae81f0c",
     account_type: "personal",
-    account_number: "97228831",
-    // account_number: "333333333",
-    customer_id: "390e9c4c-e2fa-40dc-95b2-fc3d9418b9c4",
-    // customer_id: "1ab44715-2a7c-4b05-a67b-8517e4f3d1cf",
+    // account_number: "97228831",
+    account_number: "333333333",
+    // customer_id: "390e9c4c-e2fa-40dc-95b2-fc3d9418b9c4",
+    customer_id: "1ab44715-2a7c-4b05-a67b-8517e4f3d1cf",
     extcid: "9",
-    account_holder: "Terry Sentinella",
-    // account_holder: "Migmeninfo Inc",
+    // account_holder: "Terry Sentinella",
+    account_holder: "Migmeninfo Inc",
     opening_date: "2016-07-22"
 
 }
