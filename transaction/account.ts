@@ -24,6 +24,7 @@ import {OutgoingHighRiskFundTransferStructuring} from "./rules/OutgoingHighRiskF
 import {AccCirculationOfFundsInvestment} from "./rules/AccCirculationOfFundsInvestment";
 import {AccCirculationOfFundsLongPeriod} from "./rules/AccCirculationOfFundsLongPeriod";
 import {AccCirculationOfFundsSLL} from "./rules/AccCirculationOfFundsSLL";
+import {AccCirculationOfFundsAll} from "./rules/AccCirculationOfFundsAll";
 
 const rule1 = new DailyCashEquivalentDepositsStructuring()
 const rule2 = new CashEquivalentDepositsStructuring()
@@ -50,6 +51,7 @@ const rule19 = new OutgoingHighRiskFundTransferStructuring()
 const rule20 = new AccCirculationOfFundsInvestment()
 const rule21 = new AccCirculationOfFundsLongPeriod()
 const rule22 = new AccCirculationOfFundsSLL()
+const rule23 = new AccCirculationOfFundsAll()
 
 
 let total = 100;
@@ -103,6 +105,7 @@ output.forEach(value => {
         ...rule20.generateRule(value),
         ...rule21.generateRule(value),
         ...rule22.generateRule(value),
+        ...rule23.generateRule(value),
     ]
     // const acc_name = `${value.account_holder}_transaction`
     // writeToCSV(acc_name,{"transaction":results})

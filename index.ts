@@ -31,6 +31,7 @@ import {OutgoingHighRiskFundTransferStructuring} from "./transaction/rules/Outgo
 import {AccCirculationOfFundsInvestment} from "./transaction/rules/AccCirculationOfFundsInvestment";
 import {AccCirculationOfFundsLongPeriod} from "./transaction/rules/AccCirculationOfFundsLongPeriod";
 import {AccCirculationOfFundsSLL} from "./transaction/rules/AccCirculationOfFundsSLL";
+import {AccCirculationOfFundsAll} from "./transaction/rules/AccCirculationOfFundsAll";
 
 const total = 10
 //
@@ -67,7 +68,8 @@ const total = 10
 // const rule = new OutgoingHighRiskFundTransferStructuring()
 // const rule = new AccCirculationOfFundsInvestment()
 // const rule = new AccCirculationOfFundsLongPeriod()
-const rule = new AccCirculationOfFundsSLL()
+// const rule = new AccCirculationOfFundsSLL()
+const rule = new AccCirculationOfFundsAll()
 
 const account: AccountSchema = {
     id: "28dba766-60a2-4399-92ad-89655ae81f0c",
