@@ -3,14 +3,13 @@ import {AccountSchema} from "../../kyc/account";
 import {PartyGroupSchema} from "../partygroup";
 import {formatDateToTransaction, shuffleArray, writeToJson} from "../../util";
 import {mocker} from "mocker-data-generator";
-import {TransactionDto} from "../transaction_dto";
+import {HistoricalTransactionsEntity, TransactionDto} from "../transaction_dto";
 import {generateHistoricalBehaviorProfiles} from "../historicalBehaviorProfiles";
 
 export class ExcessiveHighRiskActivity extends Transactions {
-    generateRule(account: AccountSchema, partyGroup?: PartyGroupSchema): any[] {
-        let results = []
-        let total = 4;
-        const amount = [3000000,3000000,500000,500000]
+    generateRule(account: AccountSchema, partyGroup?: PartyGroupSchema): HistoricalTransactionsEntity[] {
+        this.total = 4;
+        const amount = [3000000, 3000000, 500000, 500000]
         const transaction = {
             transactionNumber: {
                 function: function () {
@@ -32,7 +31,7 @@ export class ExcessiveHighRiskActivity extends Transactions {
             },
             date: {
                 function: function () {
-                    const date = this.faker.date.between('2020-11-01','2021-08-01')
+                    const date = this.faker.date.between('2020-11-01', '2021-08-01')
                     return formatDateToTransaction(date)
                 }
             },
@@ -68,29 +67,31 @@ export class ExcessiveHighRiskActivity extends Transactions {
             }
 
         }
-        let name = "transaction";
-        let rule = "CashEquivalentLoanPaymentsStructuring"
+        this.name = "transaction";
+        this.rule = "CashEquivalentLoanPaymentsStructuring"
         mocker()
-            .schema(name, transaction, total)
+            .schema(this.name, transaction, this.total)
             .build((err, data) => {
                 if (err) throw err
-                data[name] = data[name].map((v, index) => {
+                data[this.name] = data[this.name].map((v, index) => {
                     v.amount = amount[index]
                     return v
                 })
                 const result: TransactionDto = {
-                    account: account, transaction: data[name][0],
-                    historicalTransactions: data[name].slice(1, total),
+                    account: account, transaction: data[this.name][0],
+                    historicalTransactions: data[this.name].slice(1, this.total),
                     peerGroupBehaviorProfiles: [],
                     entityFocusClassification: [],
                     partyGroupList: [partyGroup],
                     historicalBehaviorProfiles: generateHistoricalBehaviorProfiles()
                 }
                 // console.log('data', JSON.stringify(result))
-                writeToJson(rule, result)
-                results = result.historicalTransactions
+                writeToJson(this.rule, result)
+                this.results = result.historicalTransactions
+                this.results.push(data[this.name][0])
+
             })
-        return results
+        return this.results
     }
 
 }

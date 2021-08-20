@@ -1,14 +1,13 @@
 import {Transactions} from "../transactions";
 import {AccountSchema} from "../../kyc/account";
 import {mocker} from "mocker-data-generator";
-import {TransactionDto} from "../transaction_dto";
+import {HistoricalTransactionsEntity, TransactionDto} from "../transaction_dto";
 import {formatDateToTransaction, writeToJson} from "../../util";
 import {PartyGroupSchema} from "../partygroup";
 
 export class ComplexLayeringOutgoing extends Transactions {
-    generateRule(account: AccountSchema, partyGroup?: PartyGroupSchema): any[] {
-        let results = []
-        const total = 5
+    generateRule(account: AccountSchema, partyGroup?: PartyGroupSchema): HistoricalTransactionsEntity[] {
+        this.total = 5
         const amount = [20000000, 80000000, 40000000, 50000000, 10000000]
         const code = ["ALL-INN", "ALL-INN", "FTR-OUT", "FTR-OUT", "ALL-OUT"]
         const debitCredit = ["D", "D", "C", "C", "C"]
@@ -79,15 +78,15 @@ export class ComplexLayeringOutgoing extends Transactions {
                 }
             }
         }
-        let name = "transaction";
-        let rule = "ComplexLayeringOutgoing"
+        this.name = "transaction";
+        this.rule = "ComplexLayeringOutgoing"
         let oppositeAccountName = "oppositeAccount"
         mocker()
-            .schema(name, transaction, total)
-            .schema(oppositeAccountName, oppositeAccount, total)
+            .schema(this.name, transaction, this.total)
+            .schema(oppositeAccountName, oppositeAccount, this.total)
             .build((err, data) => {
                 if (err) throw err
-                data[name] = data[name].map((v, index) => {
+                data[this.name] = data[this.name].map((v, index) => {
                     v.amount = amount[index]
                     v.code = code[index]
                     if (v.code === "FTR-OUT") {
@@ -97,21 +96,23 @@ export class ComplexLayeringOutgoing extends Transactions {
                     return v
                 })
                 const partyList = []
-                if (partyGroup){
+                if (partyGroup) {
                     partyList.push(partyGroup)
                 }
                 const result: TransactionDto = {
-                    account: account, transaction: data[name][0],
-                    historicalTransactions: data[name].slice(1, 5),
+                    account: account, transaction: data[this.name][0],
+                    historicalTransactions: data[this.name].slice(1, 5),
                     peerGroupBehaviorProfiles: [],
                     entityFocusClassification: [],
                     partyGroupList: partyList
                 }
                 // console.log('data', JSON.stringify(result))
-                writeToJson(rule, result)
-                results = result.historicalTransactions
+                writeToJson(this.rule, result)
+                this.results = result.historicalTransactions
+                this.results.push(data[this.name][0])
+
             })
-        return results
+        return this.results
 
 
     }

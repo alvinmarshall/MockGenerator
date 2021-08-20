@@ -3,13 +3,12 @@ import {AccountSchema} from "../../kyc/account";
 import {PartyGroupSchema} from "../partygroup";
 import {formatDateToTransaction, shuffleArray, writeToJson} from "../../util";
 import {mocker} from "mocker-data-generator";
-import {TransactionDto} from "../transaction_dto";
+import {HistoricalTransactionsEntity, TransactionDto} from "../transaction_dto";
 
-export class OutgoingHighRiskFundTransferStructuring extends Transactions{
-    generateRule(account: AccountSchema, partyGroup?: PartyGroupSchema): any[] {
-        let results = []
-        let total = 7;
-        const amount = [8700, 8300, 8100, 8234,8045,8543, 2000]
+export class OutgoingHighRiskFundTransferStructuring extends Transactions {
+    generateRule(account: AccountSchema, partyGroup?: PartyGroupSchema): HistoricalTransactionsEntity[] {
+        this.total = 7;
+        const amount = [8700, 8300, 8100, 8234, 8045, 8543, 2000]
         const transaction = {
             transactionNumber: {
                 function: function () {
@@ -67,28 +66,28 @@ export class OutgoingHighRiskFundTransferStructuring extends Transactions{
             }
 
         }
-        let name = "transaction";
-        let rule = "OutgoingHighRiskFundTransferStructuring"
+        this.name = "transaction";
+        this.rule = "OutgoingHighRiskFundTransferStructuring"
 
         mocker()
-            .schema(name, transaction, total)
+            .schema(this.name, transaction, this.total)
             .build((err, data) => {
                 if (err) throw err
-                data[name] = data[name].map((v, index) => {
+                data[this.name] = data[this.name].map((v, index) => {
                     v.amount = amount[index]
                     return v
                 })
                 const result: TransactionDto = {
-                    account: account, transaction: data[name][0],
-                    historicalTransactions: shuffleArray(data[name]),
+                    account: account, transaction: data[this.name][0],
+                    historicalTransactions: shuffleArray(data[this.name]),
                     peerGroupBehaviorProfiles: [],
                     entityFocusClassification: []
                 }
                 // console.log('data', JSON.stringify(result))
-                writeToJson(rule, result)
-                results = result.historicalTransactions
+                writeToJson(this.rule, result)
+                this.results = result.historicalTransactions
             })
-        return results
+        return this.results
 
     }
 

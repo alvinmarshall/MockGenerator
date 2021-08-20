@@ -1,12 +1,12 @@
 import {Transactions} from "../transactions";
 import {AccountSchema} from "../../kyc/account";
 import {mocker} from "mocker-data-generator";
-import {TransactionDto} from "../transaction_dto";
+import {HistoricalTransactionsEntity, TransactionDto} from "../transaction_dto";
 import {formatDateToTransaction, writeToJson} from "../../util";
+import {PartyGroupSchema} from "../partygroup";
 
 export class CashEquivalentDepositsStructuring extends Transactions {
-    generateRule(account: AccountSchema): any[] {
-        let results = []
+    generateRule(account: AccountSchema, partyGroup?: PartyGroupSchema): HistoricalTransactionsEntity[] {
         const amount = [8400, 900, 9999]
         const transaction = {
             transactionNumber: {
@@ -65,29 +65,29 @@ export class CashEquivalentDepositsStructuring extends Transactions {
             }
 
         }
-        let name = "transaction";
-        let rule = "CashEquivalentDepositsStructuring"
-        let total = 3;
+        this.name = "transaction";
+        this.rule = "CashEquivalentDepositsStructuring"
+        this.total = 3;
         mocker()
-            .schema(name, transaction, total)
+            .schema(this.name, transaction, this.total)
             .build((err, data) => {
                 if (err) throw err
-                data[name] = data[name].map((v, index) => {
+                data[this.name] = data[this.name].map((v, index) => {
                     v.amount = amount[index]
                     return v
                 })
                 const result: TransactionDto = {
-                    account: account, transaction: data[name][0],
-                    historicalTransactions: data[name],
+                    account: account, transaction: data[this.name][0],
+                    historicalTransactions: data[this.name],
                     peerGroupBehaviorProfiles: [],
                     entityFocusClassification: []
                 }
                 // console.log('data', JSON.stringify(result))
                 // writeToJson(rule, result)
-                results = result.historicalTransactions
+                this.results = result.historicalTransactions
             })
 
-        return results
+        return this.results
     }
 
 }

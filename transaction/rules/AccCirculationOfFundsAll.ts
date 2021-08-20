@@ -3,13 +3,12 @@ import {AccountSchema} from "../../kyc/account";
 import {PartyGroupSchema} from "../partygroup";
 import {formatDateToTransaction, writeToJson} from "../../util";
 import {mocker} from "mocker-data-generator";
-import {TransactionDto} from "../transaction_dto";
+import {HistoricalTransactionsEntity, TransactionDto} from "../transaction_dto";
 import {generateLogicalEntity} from "../logicalEntity";
 
-export class AccCirculationOfFundsAll extends Transactions{
-    generateRule(account: AccountSchema, partyGroup?: PartyGroupSchema): any[] {
-        let results = []
-        let total = 9;
+export class AccCirculationOfFundsAll extends Transactions {
+    generateRule(account: AccountSchema, partyGroup?: PartyGroupSchema): HistoricalTransactionsEntity[] {
+        this.total = 9;
         const amount = [
             10000000,
             50000000,
@@ -89,29 +88,30 @@ export class AccCirculationOfFundsAll extends Transactions{
             }
 
         }
-        let name = "transaction";
-        let rule = "AccCirculationOfFundsAll"
+        this.name = "transaction";
+        this.rule = "AccCirculationOfFundsAll"
         mocker()
-            .schema(name, transaction, total)
+            .schema(this.name, transaction, this.total)
             .build((err, data) => {
                 if (err) throw err
-                data[name] = data[name].map((v, index) => {
+                data[this.name] = data[this.name].map((v, index) => {
                     v.amount = amount[index]
                     v.code = code[index]
                     return v
                 })
                 const result: TransactionDto = {
-                    transaction: data[name][0],
-                    historicalTransactions: data[name].slice(1, total),
+                    transaction: data[this.name][0],
+                    historicalTransactions: data[this.name].slice(1, this.total),
                     peerGroupBehaviorProfiles: [],
                     entityFocusClassification: [],
                     logicalEntity: generateLogicalEntity(account)
                 }
                 // console.log('data', JSON.stringify(result))
-                writeToJson(rule, result)
-                results = result.historicalTransactions
+                writeToJson(this.rule, result)
+                this.results = result.historicalTransactions
+                this.results.push(data[this.name][0])
             })
-        return results
+        return this.results
     }
 
 

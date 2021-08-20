@@ -1,14 +1,13 @@
 import {Transactions} from "../transactions";
 import {AccountSchema} from "../../kyc/account";
 import {PartyGroupSchema} from "../partygroup";
-import {formatDateToTransaction, shuffleArray, writeToJson} from "../../util";
+import {formatDateToTransaction, writeToJson} from "../../util";
 import {mocker} from "mocker-data-generator";
-import {TransactionDto} from "../transaction_dto";
+import {HistoricalTransactionsEntity, TransactionDto} from "../transaction_dto";
 
 export class DailyIncomingFundTransfersStructuring extends Transactions {
-    generateRule(account: AccountSchema, partyGroup?: PartyGroupSchema): any[] {
-        let results = []
-        let total = 5;
+    generateRule(account: AccountSchema, partyGroup?: PartyGroupSchema): HistoricalTransactionsEntity[] {
+        this.total = 5;
         const amount = [2100, 700, 4040, 600, 2008]
         const transaction = {
             transactionNumber: {
@@ -87,31 +86,33 @@ export class DailyIncomingFundTransfersStructuring extends Transactions {
                 }
             }
         }
-        let name = "transaction";
-        let rule = "DailyIncomingFundTransfersStructuring"
+        this.name = "transaction";
+        this.rule = "DailyIncomingFundTransfersStructuring"
         const oppositeAccountName = "oppositeAccount"
         mocker()
-            .schema(name, transaction, total)
-            .schema(oppositeAccountName, oppositeAccount, total)
+            .schema(this.name, transaction, this.total)
+            .schema(oppositeAccountName, oppositeAccount, this.total)
             .build((err, data) => {
                 if (err) throw err
-                data[name] = data[name].map((v, index) => {
+                data[this.name] = data[this.name].map((v, index) => {
                     v.amount = amount[index]
                     if (v.amount === 4000) v.oppAccountId = data[oppositeAccountName][index].oppAccountId
                     if (v.amount === 500) v.oppAccountNumber = data[oppositeAccountName][index].oppAccountNumber
                     return v
                 })
                 const result: TransactionDto = {
-                    account: account, transaction: data[name][0],
-                    historicalTransactions: data[name].slice(1, 5),
+                    account: account, transaction: data[this.name][0],
+                    historicalTransactions: data[this.name].slice(1, this.total),
                     peerGroupBehaviorProfiles: [],
                     entityFocusClassification: []
                 }
                 // console.log('data', JSON.stringify(result))
-                writeToJson(rule, result)
-                results = result.historicalTransactions
+                writeToJson(this.rule, result)
+                this.results = result.historicalTransactions
+                this.results.push(data[this.name][0])
+
             })
-        return results
+        return this.results
     }
 
 }

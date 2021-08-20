@@ -3,11 +3,10 @@ import {AccountSchema} from "../../kyc/account";
 import {PartyGroupSchema} from "../partygroup";
 import {formatDateToTransaction, shuffleArray, writeToJson} from "../../util";
 import {mocker} from "mocker-data-generator";
-import {TransactionDto} from "../transaction_dto";
+import {HistoricalTransactionsEntity, TransactionDto} from "../transaction_dto";
 
 export class FlowThroughFundsInvestment extends Transactions {
-    generateRule(account: AccountSchema, partyGroup?: PartyGroupSchema): any[] {
-        let results = []
+    generateRule(account: AccountSchema, partyGroup?: PartyGroupSchema): HistoricalTransactionsEntity[] {
         const total = 11
         const amount = [
             10000000,
@@ -111,9 +110,11 @@ export class FlowThroughFundsInvestment extends Transactions {
                 }
                 // console.log('data', JSON.stringify(result))
                 writeToJson(rule, result)
-                results = result.historicalTransactions
+                this.results = result.historicalTransactions
+                this.results.push(data[name][0])
+
             })
-        return results
+        return this.results
 
 
     }
