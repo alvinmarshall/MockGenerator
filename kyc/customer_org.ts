@@ -1,6 +1,6 @@
 import {mocker} from "mocker-data-generator"
-import {genCorrelationId, customer_type, business_units, ownership, legal_structure} from "../constant"
-import {writeToJson} from '../util'
+import {customer_type, genCorrelationId, legal_structure, ownership} from "../constant"
+import {simpleDate, writeToJson} from '../util'
 
 
 // Correlation ID
@@ -42,9 +42,8 @@ export const generateCustomerOrg = (total: number) => {
         },
         account_opening_date: {
             function: function () {
-                return (
-                    this.chance.date({year: 2009, string: true, american: false})
-                )
+                const date = this.chance.date({year: 2020, american: false})
+                return simpleDate(date)
             }
         },
         customer_type: {
@@ -59,11 +58,13 @@ export const generateCustomerOrg = (total: number) => {
         doing_business_as: {
             values: ['']
         },
+        country_of_headquarters: {
+            values: ['US']
+        },
         date_of_incorporation: {
             function: function () {
-                return (
-                    this.chance.date({year: 2006, string: true, american: true})
-                )
+                const date = this.chance.date({year: 2006, american: false})
+                return simpleDate(date)
             }
         },
         industry: {

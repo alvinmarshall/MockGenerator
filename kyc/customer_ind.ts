@@ -1,5 +1,5 @@
 import {mocker} from "mocker-data-generator"
-import {writeToJson} from '../util'
+import {simpleDate, writeToJson} from '../util'
 
 import {
     genCorrelationId,
@@ -44,9 +44,8 @@ export const generateCustomerInd = (total: number = 5) => {
         },
         account_opening_date: {
             function: function () {
-                return (
-                    this.chance.date({year: 2009, string: true, american: false})
-                )
+                const date = this.chance.date({year: 2020, american: false})
+                return simpleDate(date)
             }
         },
         first_name: {
@@ -164,7 +163,7 @@ export const generateCustomerInd = (total: number = 5) => {
                 data[name] = newOut
             }
 
-            writeToJson(name, data,headers)
+            writeToJson(name, data, headers)
             results = data[name]
 
         })

@@ -6,8 +6,9 @@ import {
     account_opening_method,
     account_type
 } from "../constant"
-import {toTitles, writeToJson} from '../util'
+import {simpleDate, toTitles, writeToJson} from '../util'
 import {getKnownCustomers} from "./known";
+import * as util from "util";
 
 
 export interface AccountSchema {
@@ -65,9 +66,9 @@ export const generateAccount = (total: number) => {
         },
         opening_date: {
             function: function () {
-                return (
-                    this.chance.date({year: 2009, string: true, american: false})
-                )
+                const date = this.chance.date({year: 2020, american: false})
+                console.log(date)
+                return simpleDate(date)
             }
 
         },
@@ -103,7 +104,7 @@ export const generateAccount = (total: number) => {
         .build((err, data) => {
             if (err) throw err
             const correlationList = genCorrelationId(total);
-            data[name] = data[name].map((v,index) =>{
+            data[name] = data[name].map((v, index) => {
                 v.correlation_id = correlationList[index]
                 return v
             })
@@ -124,7 +125,7 @@ export const generateAccount = (total: number) => {
                 data[name] = newOut
             }
             results = data[name]
-            writeToJson(name, data,headers)
+            writeToJson(name, data, headers)
         })
     return results
 

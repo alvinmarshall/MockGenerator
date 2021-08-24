@@ -1,6 +1,6 @@
 import {mocker} from "mocker-data-generator"
 import {genCorrelationId, country_of_residence, id_document_url} from "../constant"
-import {writeToJson} from '../util'
+import {simpleDate, writeToJson} from '../util'
 // Correlation ID
 // Internal Cust Correlation ID
 // First Name
@@ -58,9 +58,9 @@ export const generateBeneficialOwners = (total: number) => {
         },
         date_of_birth: {
             function: function () {
-                return (
-                    this.chance.birthday({string: true})
-                )
+                const date = this.chance.birthday({string: false})
+                console.log(date)
+                return simpleDate(date)
             }
         },
         address_1: {
