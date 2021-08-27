@@ -2,3 +2,4 @@ node_modules/
 yarn-error.lock
 output/
 .idea/
+/yarn-error.log

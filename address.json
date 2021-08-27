@@ -1,0 +1,104 @@
+[
+  {
+    "street": "555 Grey Fox Farm Road",
+    "city": "Houston",
+    "state": "Texas",
+    "zipCode": "77002"
+  },
+  {
+    "street": "186 Polk Street",
+    "city": "Sacramento",
+    "state": "California",
+    "zipCode": "95814"
+  },
+  {
+    "street": "3411 Bombardier Way",
+    "city": "Ann Arbor",
+    "state": "Michigan",
+    "zipCode": "48104"
+  },
+  {
+    "street": "4784 Colony Street",
+    "city": "Hamden",
+    "state": "Connecticut",
+    "zipCode": "06473"
+  },
+  {
+    "street": "2300 Cunningham Court",
+    "city": "Birmingham",
+    "state": "Michigan",
+    "zipCode": "48011"
+  },
+  {
+    "street": "3494 Matthews Street",
+    "city": "Rockford",
+    "state": "Illinois",
+    "zipCode": "61101"
+  },
+  {
+    "street": "4794 Hillcrest Lane",
+    "city": "El Toro",
+    "state": "California",
+    "zipCode": "92630"
+  },
+  {
+    "street": "809 Boone Crockett Lane",
+    "city": "Lacey",
+    "state": "Washington",
+    "zipCode": "98503"
+  },
+  {
+    "street": "390 Meadow Drive",
+    "city": "Glasgow",
+    "state": "MT",
+    "zipCode": "59230"
+  },
+  {
+    "street": "2542 Hiney Road",
+    "city": "Hecla",
+    "state": "ND",
+    "zipCode": "57446"
+  },
+  {
+    "street": "2590 Hood Avenue",
+    "city": "San Diego",
+    "state": "CA",
+    "zipCode": "92128"
+  },
+  {
+    "street": "3472 Werninger Street",
+    "city": "Houston",
+    "state": "TX",
+    "zipCode": "77070"
+  },
+  {
+    "street": "211 New Creek Road",
+    "city": "Huntsville",
+    "state": "AL",
+    "zipCode": "35816"
+  },
+  {
+    "street": "3315 Par Drive",
+    "city": "Burbank",
+    "state": "CA",
+    "zipCode": "91504"
+  },
+  {
+    "street": "4771 Horizon Circle",
+    "city": "BLOOMINGTON",
+    "state": "MD",
+    "zipCode": "21523"
+  },
+  {
+    "street": "3399 Big Elm",
+    "city": "Independence",
+    "state": "MO",
+    "zipCode": "64050"
+  },
+  {
+    "street": "296 Ripple Street",
+    "city": "ROCKY POINT",
+    "state": "NY",
+    "zipCode": "11778"
+  }
+]
