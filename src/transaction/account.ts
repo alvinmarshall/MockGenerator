@@ -80,12 +80,12 @@ const account: AccountGenerator = new AccountGenerator(0, allCorrelationIds)
 const addresses: AddressGenerator = new AddressGenerator(allCorrelationIds)
 const beneficialOwners: BeneficialOwnersGenerator = new BeneficialOwnersGenerator(allCorrelationIds)
 const businessUnit: BusinessUnitGenerator = new BusinessUnitGenerator(allCorrelationIds)
-const countriesOfOperation: CountryOfOperationGenerator = new CountryOfOperationGenerator(allCorrelationIds)
-const productOffered: ProductOfferedGenerator = new ProductOfferedGenerator(allCorrelationIds)
+const countriesOfOperation: CountryOfOperationGenerator = new CountryOfOperationGenerator(orgCorrelationIds)
+const productOffered: ProductOfferedGenerator = new ProductOfferedGenerator(orgCorrelationIds)
 const relationship: RelationshipGenerator = new RelationshipGenerator(allCorrelationIds)
 const document: DocumentGenerator = new DocumentGenerator(allCorrelationIds)
-const customerInd: CustomerIndGenerator = new CustomerIndGenerator(allCorrelationIds)
-const customerOrg: CustomerOrgGenerator = new CustomerOrgGenerator(allCorrelationIds)
+const customerInd: CustomerIndGenerator = new CustomerIndGenerator(indCorrelationIds)
+const customerOrg: CustomerOrgGenerator = new CustomerOrgGenerator(orgCorrelationIds)
 
 
 const accountGen = account.generate();
