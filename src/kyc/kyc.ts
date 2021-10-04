@@ -5,7 +5,7 @@ export abstract class KYC {
     protected staticAccounts: string[] | number[]
     name: string
     protected results: any
-    protected headers: string[]
+    headers: string[]
 
     protected abstract generate()
 

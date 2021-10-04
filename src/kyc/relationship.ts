@@ -72,13 +72,13 @@ export class RelationshipGenerator extends KYC {
                 //     return phone
                 // }
             },
-            links: {
-                hasMany: 'otherRelationships',
-                min: 1,
-                max: 2
-
-
-            }
+            // links: {
+            //     hasMany: 'otherRelationships',
+            //     min: 1,
+            //     max: 2
+            //
+            //
+            // }
 
 
         }
@@ -119,7 +119,7 @@ export class RelationshipGenerator extends KYC {
         this.name = "relationships";
         let relationName = "otherRelationships";
         mocker()
-            .schema(relationName, otherRelationships, 4)
+            // .schema(relationName, otherRelationships, 4)
             .schema(this.name, relationships, this.total)
             .build((err, data) => {
                 if (err) throw err
