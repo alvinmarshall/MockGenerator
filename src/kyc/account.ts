@@ -51,7 +51,7 @@ export class AccountGenerator extends KYC {
     constructor(private count: number, private correlationIds: string[]) {
         super(count, correlationIds);
         this.total = correlationIds.length
-        this.name = 'account'
+        this.name = 'accounts'
         this.headers = [
             'Correlation ID',
             'Account Number',
